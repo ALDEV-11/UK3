@@ -354,62 +354,85 @@
           </div>
         </section>
         <!-- Featured Restaurants Section -->
-        <section id="restaurants">
-          <div class="bg-base-200 py-8 sm:py-16 lg:py-24">
-            <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-              <!-- Section Header -->
-              <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-                <h2 class="text-base-content text-2xl font-semibold md:text-3xl lg:text-4xl">Featured Restaurants</h2>
-                <p class="text-base-content/80 text-xl">Explore a variety of restaurants and cuisines available in your area</p>
-              </div>
-              <!-- Restaurants Grid -->
-              <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @php
-                  $restoran = \DB::table('restoran')->limit(6)->get();
-                @endphp
-                @forelse($restoran as $r)
-                  <div class="card card-border shadow-none hover:shadow-lg transition-shadow overflow-hidden">
-                    <figure class="bg-base-300 h-48 flex items-center justify-center">
-                      @if(isset($r->gambar))
-                        <img src="{{ asset($r->gambar) }}" alt="{{ $r->nama_restoran }}" class="h-full w-full object-cover" />
-                      @else
-                        <div class="flex flex-col items-center justify-center text-base-content/40">
-                          <span class="icon-[tabler--building-restaurant] size-16"></span>
-                          <span class="text-sm mt-2">No Image</span>
-                        </div>
-                      @endif
-                    </figure>
-                    <div class="card-body gap-3">
-                      <h3 class="card-title text-xl">{{ $r->nama_restoran }}</h3>
-                      <p class="text-base-content/70 line-clamp-2">{{ $r->deskripsi ?? 'Quality food with excellent service' }}</p>
-                      <div class="flex items-center gap-4 text-sm">
-                        <span class="flex items-center gap-1">
-                          <span class="icon-[tabler--star-filled] text-warning size-4"></span>
-                          {{ $r->rating ?? '4.5' }}/5
-                        </span>
-                        <span class="flex items-center gap-1">
-                          <span class="icon-[tabler--map-pin] text-error size-4"></span>
-                          {{ $r->alamat ?? 'Area' }}
-                        </span>
+        <section id="restaurants" class="py-8 sm:py-16 lg:py-24" style="background-color: #FFF8F3;">
+          <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Restoran Terbaik</h2>
+              <p class="text-lg" style="color: #666;">Jelajahi berbagai pilihan restoran favorit dan nikmati pengalaman bersantap terbaik</p>
+            </div>
+            <!-- Restaurants Grid -->
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              @php
+                $restoran = \App\Models\Restoran::where('status', 'aktif')->limit(6)->get();
+              @endphp
+              @forelse($restoran as $r)
+                <div class="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white border-2" style="border-color: #F5A623;">
+                  <!-- Image Container -->
+                  <div class="relative h-56 bg-gray-200 overflow-hidden group">
+                    @if($r->gambar && \Storage::exists('public/' . $r->gambar))
+                      <img src="{{ asset('storage/' . $r->gambar) }}" alt="{{ $r->nama_restoran }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                    @else
+                      <div class="flex flex-col items-center justify-center h-full text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">
+                          <path d="M11 3a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm8-4a1 1 0 0 0-1-1h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm-14 0a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm11.66-6.66a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm-8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zM4.22 4.22a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41z"/>
+                        </svg>
+                        <span class="text-sm mt-2">Tidak ada gambar</span>
                       </div>
-                      <div class="card-actions">
-                        <button class="btn btn-primary btn-sm w-full">Order From Here</button>
+                    @endif
+                    <!-- Status Badge -->
+                    @if($r->status === 'aktif')
+                      <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #E8612A;">Buka</span>
+                    @endif
+                  </div>
+
+                  <!-- Content Container -->
+                  <div class="p-6 space-y-4">
+                    <!-- Title & Description -->
+                    <div>
+                      <h3 class="text-xl font-bold mb-2" style="color: #2C1810;">{{ $r->nama_restoran }}</h3>
+                      <p class="text-sm line-clamp-2" style="color: #666;">{{ $r->deskripsi ?? 'Nikmati kuliner lezat dengan pelayanan terbaik' }}</p>
+                    </div>
+
+                    <!-- Rating & Location -->
+                    <div class="flex items-center gap-4 text-sm pt-2 border-t" style="border-color: #F5A623;">
+                      <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4" style="color: #F5A623;">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span style="color: #2C1810; font-weight: 600;">{{ number_format($r->ulasan()->avg(DB::raw('(rating_makanan + rating_pengiriman) / 2')) ?? 4.5, 1) }}/5</span>
+                      </div>
+                      <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4" style="color: #E8612A;">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span style="color: #666;" class="line-clamp-1">{{ $r->alamat ?? 'Lokasi' }}</span>
                       </div>
                     </div>
+
+                    <!-- Button -->
+                    <div class="pt-2">
+                      <a href="{{ route('restoran.public.show', ['slug' => $r->slug]) }}" class="w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                        Pesan Sekarang
+                      </a>
+                    </div>
                   </div>
-                @empty
-                  <div class="col-span-full text-center py-12">
-                    <p class="text-base-content/60">No restaurants available</p>
-                  </div>
-                @endforelse
-              </div>
-              <br>
-              <div class="mt-12 text-center">
-                <a href="#restaurants" class="btn btn-primary btn-lg">
-                  Explore All Restaurants
-                  <span class="icon-[tabler--arrow-right] size-5"></span>
-                </a>
-              </div>
+                </div>
+              @empty
+                <div class="col-span-full text-center py-16">
+                  <p class="text-lg" style="color: #666;">Belum ada restoran yang tersedia</p>
+                </div>
+              @endforelse
+            </div>
+
+            <!-- View All Button -->
+            <div class="mt-16 text-center">
+              <a href="{{ route('pelanggan.menu.search') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                Lihat Semua Restoran
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
             </div>
           </div>
         </section>

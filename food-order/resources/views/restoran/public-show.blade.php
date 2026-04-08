@@ -9,10 +9,10 @@
 <body style="background-color: #FFF8F3; color: #2C1810;">
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div class="mb-6 flex items-center justify-between">
-            <a href="{{ route('pelanggan.menu.search') }}" class="btn-detail">← Kembali ke pencarian menu</a>
+            <a href="{{ route('pelanggan.menu.search') }}" class="rounded-lg px-4 py-2 text-sm font-bold text-[#2C1810] border border-[#F5A623] hover:bg-[#FFF8F3] transition-colors">← Kembali ke pencarian menu</a>
             @auth
                 @if (auth()->user()->role === 'pelanggan')
-                    <a href="{{ route('pelanggan.keranjang.index') }}" class="btn-primary">Lihat Keranjang</a>
+                    <a href="{{ route('pelanggan.keranjang.index') }}" class="rounded-lg px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">Lihat Keranjang</a>
                 @endif
             @endauth
         </div>
@@ -53,7 +53,7 @@
                     <div class="mt-2 grid gap-3 rounded-xl border border-[#F5A623] bg-[#FFF8F3] p-4 text-sm sm:grid-cols-2">
                         <div>
                             <p class="text-[#2C1810]">Rata-rata Makanan</p>
-                            <p class="font-semibold text-[#E8612A]">{{ number_format((float) $ratingMakananAvg, 1)}/5</p>
+                            <p class="font-semibold text-[#E8612A]">{{ number_format((float) $ratingMakananAvg, 1) }}/5</p>
                         </div>
                         <div>
                             <p class="text-[#2C1810]">Rata-rata Pengiriman</p>
@@ -133,11 +133,11 @@
 
                                 @auth
                                     @if (auth()->user()->role === 'pelanggan')
-                                        <form action="{{ route('pelanggan.keranjang.tambah') }}" method="POST" class="mt-1 flex items-center gap-2">
+                                        <form class="tambah-keranjang-form mt-1 flex items-center gap-2" method="POST" data-action="{{ route('pelanggan.keranjang.tambah') }}">
                                             @csrf
                                             <input type="hidden" name="id_menu" value="{{ $item->id_menu }}">
-                                            <input type="number" name="jumlah" min="1" value="1" class="w-20 rounded-lg border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
-                                            <button type="submit" class="btn-primary">Tambah</button>
+                                            <input type="number" name="jumlah" min="1" value="1" class="w-20 rounded-lg border border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
+                                            <button type="submit" class="rounded-lg px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">Tambah</button>
                                         </form>
                                     @endif
                                 @endauth
@@ -148,5 +148,62 @@
             @endif
         </div>
     </div>
+
+    <script>
+        // Toast notification helper
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 px-4 py-3 rounded-lg text-white font-semibold z-50 ${
+                type === 'success' ? 'bg-emerald-500' : 'bg-rose-500'
+            }`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Handle form submit dengan AJAX
+        document.querySelectorAll('.tambah-keranjang-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const actionUrl = form.getAttribute('data-action');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Loading...';
+
+                try {
+                    const response = await fetch(actionUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast(data.message, 'success');
+                        form.reset();
+                        form.querySelector('input[name="jumlah"]').value = '1';
+                    } else {
+                        showToast(data.message || 'Terjadi kesalahan', 'error');
+                    }
+                } catch (error) {
+                    showToast('Terjadi kesalahan jaringan', 'error');
+                    console.error('Error:', error);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

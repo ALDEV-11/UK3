@@ -17,9 +17,9 @@
         </div>
 
     <form method="GET" action="{{ route('pelanggan.menu.search') }}" class="mb-6 grid gap-3 rounded-2xl bg-white p-4 shadow-lg border border-[#F5A623] md:grid-cols-4">
-            <input type="text" name="q" value="{{ $q }}" placeholder="Cari nama/deskripsi menu..." class="md:col-span-2 rounded-lg border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]" />
+            <input type="text" name="q" value="{{ $q }}" placeholder="Cari nama/deskripsi menu..." class="md:col-span-2 rounded-lg border border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]" />
 
-            <select name="restoran_id" class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
+            <select name="restoran_id" class="rounded-lg border border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
                 <option value="">Semua restoran</option>
                 @foreach ($restoranOptions as $restoran)
                     <option value="{{ $restoran->id_restoran }}" @selected((int) $restoranId === (int) $restoran->id_restoran)>
@@ -28,7 +28,7 @@
                 @endforeach
             </select>
 
-            <select name="kategori_id" class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
+            <select name="kategori_id" class="rounded-lg border border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
                 <option value="">Semua kategori</option>
                 @foreach ($kategoriOptions as $kategori)
                     <option value="{{ $kategori->id_kategori }}" @selected((int) $kategoriId === (int) $kategori->id_kategori)>
@@ -38,8 +38,8 @@
             </select>
 
             <div class="md:col-span-4 flex items-center gap-2">
-                <button type="submit" class="btn-primary">Cari</button>
-                <a href="{{ route('pelanggan.menu.search') }}" class="btn-detail">Reset</a>
+                <button type="submit" class="rounded-lg px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">Cari</button>
+                <a href="{{ route('pelanggan.menu.search') }}" class="rounded-lg px-4 py-2 text-sm font-bold text-[#2C1810] border border-[#F5A623] hover:bg-[#FFF8F3] transition-colors">Reset</a>
             </div>
         </form>
 
@@ -82,11 +82,11 @@
 
                         @auth
                             @if (auth()->user()->role === 'pelanggan')
-                                <form action="{{ route('pelanggan.keranjang.tambah') }}" method="POST" class="mt-2 flex items-center gap-2">
+                                <form class="tambah-keranjang-form mt-2 flex items-center gap-2" method="POST" data-action="{{ route('pelanggan.keranjang.tambah') }}">
                                     @csrf
                                     <input type="hidden" name="id_menu" value="{{ $item->id_menu }}">
-                                    <input type="number" name="jumlah" min="1" value="1" class="w-20 rounded-lg border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
-                                    <button type="submit" class="btn-primary">Tambah</button>
+                                    <input type="number" name="jumlah" min="1" value="1" class="w-20 rounded-lg border border-[#F5A623] text-sm text-[#2C1810] focus:border-[#E8612A] focus:ring-[#E8612A]">
+                                    <button type="submit" class="rounded-lg px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">Tambah</button>
                                 </form>
                             @endif
                         @endauth
@@ -104,6 +104,63 @@
         </div>
     </div>
     </div>
+
+    <script>
+        // Toast notification helper
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 px-4 py-3 rounded-lg text-white font-semibold z-50 ${
+                type === 'success' ? 'bg-emerald-500' : 'bg-rose-500'
+            }`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Handle form submit dengan AJAX
+        document.querySelectorAll('.tambah-keranjang-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const actionUrl = form.getAttribute('data-action');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Loading...';
+
+                try {
+                    const response = await fetch(actionUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast(data.message, 'success');
+                        form.reset();
+                        form.querySelector('input[name="jumlah"]').value = '1';
+                    } else {
+                        showToast(data.message || 'Terjadi kesalahan', 'error');
+                    }
+                } catch (error) {
+                    showToast('Terjadi kesalahan jaringan', 'error');
+                    console.error('Error:', error);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            });
+        });
+    </script>
 
 @endsection
 

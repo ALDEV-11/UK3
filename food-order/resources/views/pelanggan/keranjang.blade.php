@@ -9,31 +9,7 @@
 @section('content')
     <div class="py-6" style="background-color: #FFF8F3;" x-data="keranjangPage()" x-init="init()">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-            <div class="overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
-                <h2 class="text-lg font-extrabold tracking-tight text-[#2C1810]">Tambah Menu ke Keranjang</h2>
-                <p class="mt-1 text-sm text-[#2C1810]">Masukkan ID menu dan jumlah untuk uji endpoint keranjang via session.</p>
-
-                <form class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" @submit.prevent="tambahItem">
-                    <input x-model="formTambah.id_menu" type="number" min="1" placeholder="ID Menu"
-                        class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]" required
-                        :disabled="isLoading">
-                    <input x-model="formTambah.jumlah" type="number" min="1" placeholder="Jumlah"
-                        class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]" required
-                        :disabled="isLoading">
-                    <input x-model="formTambah.catatan" type="text" placeholder="Catatan (opsional)"
-                        class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]"
-                        :disabled="isLoading">
-                    <button type="submit"
-                        class="inline-flex items-center justify-center rounded-lg bg-[#E8612A] px-4 py-2 text-sm font-semibold text-[#FFF8F3] hover:bg-[#F5A623] hover:text-[#2C1810] disabled:cursor-not-allowed disabled:opacity-60"
-                        :disabled="isLoading">
-                        <svg x-show="isLoading" class="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                        </svg>
-                        <span x-text="isLoading ? loadingLabel : 'Tambah'"></span>
-                    </button>
-                </form>
-            </div>
+            
 
             <div class="overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

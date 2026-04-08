@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
 class Restoran extends Model
@@ -64,5 +65,10 @@ class Restoran extends Model
     public function pesanan(): HasMany
     {
         return $this->hasMany(Pesanan::class, 'id_restoran', 'id_restoran');
+    }
+
+    public function ulasan(): HasManyThrough
+    {
+        return $this->hasManyThrough(Ulasan::class, Pesanan::class, 'id_restoran', 'id_pesanan', 'id_restoran', 'id_pesanan');
     }
 }
