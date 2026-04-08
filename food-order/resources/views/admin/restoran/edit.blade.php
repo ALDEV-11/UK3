@@ -8,7 +8,7 @@
             <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
                 <h2 class="mb-4 text-lg font-semibold text-gray-900">Edit Restoran</h2>
 
-                <form method="POST" action="{{ route('admin.restoran.update', $restoran->id_restoran) }}" class="grid grid-cols-1 gap-4">
+                <form method="POST" action="{{ route('admin.restoran.update', $restoran->id_restoran) }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
                     @csrf
                     @method('PUT')
 
@@ -62,8 +62,12 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Gambar (URL/Path)</label>
-                            <input type="text" name="gambar" value="{{ old('gambar', $restoran->gambar) }}" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                            <label class="block text-sm font-medium text-gray-700">Gambar Restoran</label>
+                            <input type="file" name="gambar" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                            <p class="mt-1 text-xs text-gray-500">Kosongkan jika tidak ingin mengganti gambar. Maksimal 2MB.</p>
+                            @if ($restoran->gambar)
+                                <img src="{{ asset('storage/' . $restoran->gambar) }}" alt="{{ $restoran->nama_restoran }}" class="mt-2 h-24 w-24 rounded-md object-cover ring-1 ring-gray-200">
+                            @endif
                             @error('gambar')<p class="mt-1 text-xs text-rose-600">{{ $message }}</p>@enderror
                         </div>
                         <div>

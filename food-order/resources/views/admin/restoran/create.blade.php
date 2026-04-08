@@ -8,7 +8,7 @@
             <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
                 <h2 class="mb-4 text-lg font-semibold text-gray-900">Tambah Restoran</h2>
 
-                <form method="POST" action="{{ route('admin.restoran.store') }}" class="grid grid-cols-1 gap-4">
+                <form method="POST" action="{{ route('admin.restoran.store') }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
                     @csrf
 
                     <div>
@@ -62,8 +62,9 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Gambar (URL/Path)</label>
-                            <input type="text" name="gambar" value="{{ old('gambar') }}" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                            <label class="block text-sm font-medium text-gray-700">Gambar Restoran</label>
+                            <input type="file" name="gambar" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                            <p class="mt-1 text-xs text-gray-500">Upload file gambar (jpg, png, webp), maksimal 2MB.</p>
                             @error('gambar')<p class="mt-1 text-xs text-rose-600">{{ $message }}</p>@enderror
                         </div>
                         <div>

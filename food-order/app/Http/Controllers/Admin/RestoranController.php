@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Restoran;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class RestoranController extends Controller
@@ -52,11 +53,15 @@ class RestoranController extends Controller
             'deskripsi' => ['nullable', 'string'],
             'alamat' => ['required', 'string'],
             'no_telp' => ['required', 'string', 'max:15'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'jam_buka' => ['required', 'date_format:H:i'],
             'jam_tutup' => ['required', 'date_format:H:i', 'after:jam_buka'],
             'status' => ['required', Rule::in(['aktif', 'nonaktif'])],
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('restoran', 'public');
+        }
 
         $restoran = Restoran::query()->create($validated);
 
@@ -113,11 +118,20 @@ class RestoranController extends Controller
             'deskripsi' => ['nullable', 'string'],
             'alamat' => ['required', 'string'],
             'no_telp' => ['required', 'string', 'max:15'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'jam_buka' => ['required', 'date_format:H:i'],
             'jam_tutup' => ['required', 'date_format:H:i', 'after:jam_buka'],
             'status' => ['required', Rule::in(['aktif', 'nonaktif'])],
         ]);
+
+        if ($request->hasFile('gambar')) {
+            if (! empty($restoran->gambar)) {
+                Storage::disk('public')->delete($restoran->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('restoran', 'public');
+        } else {
+            unset($validated['gambar']);
+        }
 
         $restoran->update($validated);
 
@@ -132,6 +146,11 @@ class RestoranController extends Controller
     public function destroy(string $id)
     {
         $restoran = Restoran::query()->findOrFail($id);
+
+        if (! empty($restoran->gambar)) {
+            Storage::disk('public')->delete($restoran->gambar);
+        }
+
         $restoran->delete();
 
         return redirect()

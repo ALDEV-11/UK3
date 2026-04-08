@@ -7,6 +7,7 @@ use App\Models\KategoriMenu;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class MenuController extends Controller
@@ -60,12 +61,16 @@ class MenuController extends Controller
             'nama_menu' => ['required', 'string', 'max:150'],
             'deskripsi' => ['nullable', 'string'],
             'harga' => ['required', 'numeric', 'min:0'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'stok' => ['required', 'integer', 'min:0'],
             'status' => ['required', Rule::in(['tersedia', 'habis'])],
         ]);
 
         $validated['id_restoran'] = $restoranId;
+
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('menu', 'public');
+        }
 
         Menu::query()->create($validated);
 
@@ -130,10 +135,19 @@ class MenuController extends Controller
             'nama_menu' => ['required', 'string', 'max:150'],
             'deskripsi' => ['nullable', 'string'],
             'harga' => ['required', 'numeric', 'min:0'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'stok' => ['required', 'integer', 'min:0'],
             'status' => ['required', Rule::in(['tersedia', 'habis'])],
         ]);
+
+        if ($request->hasFile('gambar')) {
+            if (! empty($menu->gambar)) {
+                Storage::disk('public')->delete($menu->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('menu', 'public');
+        } else {
+            unset($validated['gambar']);
+        }
 
         $menu->update($validated);
 
@@ -153,6 +167,10 @@ class MenuController extends Controller
         $menu = Menu::query()
             ->where('id_restoran', $restoranId)
             ->findOrFail($id);
+
+        if (! empty($menu->gambar)) {
+            Storage::disk('public')->delete($menu->gambar);
+        }
 
         $menu->delete();
 
