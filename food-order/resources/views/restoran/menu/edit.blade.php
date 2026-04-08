@@ -8,7 +8,7 @@
             <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
                 <h2 class="mb-4 text-lg font-semibold text-gray-900">Edit Menu</h2>
 
-                <form method="POST" action="{{ route('restoran.menu.update', $menu->id_menu) }}" class="grid grid-cols-1 gap-4">
+                <form method="POST" action="{{ route('restoran.menu.update', $menu->id_menu) }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
                     @csrf
                     @method('PUT')
 
@@ -56,8 +56,12 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Gambar (URL/Path)</label>
-                        <input type="text" name="gambar" value="{{ old('gambar', $menu->gambar) }}" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                        <label class="block text-sm font-medium text-gray-700">Gambar Menu</label>
+                        <input type="file" name="gambar" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm">
+                        <p class="mt-1 text-xs text-gray-500">Kosongkan jika tidak ingin mengganti gambar. Maksimal 2MB.</p>
+                        @if ($menu->gambar)
+                            <img src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama_menu }}" class="mt-2 h-24 w-24 rounded-md object-cover ring-1 ring-gray-200">
+                        @endif
                         @error('gambar')<p class="mt-1 text-xs text-rose-600">{{ $message }}</p>@enderror
                     </div>
 

@@ -7,6 +7,7 @@ use App\Models\KategoriMenu;
 use App\Models\Menu;
 use App\Models\Restoran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class MenuController extends Controller
@@ -52,7 +53,7 @@ class MenuController extends Controller
             'nama_menu' => ['required', 'string', 'max:150'],
             'deskripsi' => ['nullable', 'string'],
             'harga' => ['required', 'numeric', 'min:0'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'stok' => ['required', 'integer', 'min:0'],
             'status' => ['required', Rule::in(['tersedia', 'habis'])],
         ]);
@@ -62,6 +63,10 @@ class MenuController extends Controller
             return back()
                 ->withErrors(['id_kategori' => 'Kategori tidak sesuai dengan restoran yang dipilih.'])
                 ->withInput();
+        }
+
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('menu', 'public');
         }
 
         Menu::query()->create($validated);
@@ -115,7 +120,7 @@ class MenuController extends Controller
             'nama_menu' => ['required', 'string', 'max:150'],
             'deskripsi' => ['nullable', 'string'],
             'harga' => ['required', 'numeric', 'min:0'],
-            'gambar' => ['nullable', 'string', 'max:255'],
+            'gambar' => ['nullable', 'image', 'max:2048'],
             'stok' => ['required', 'integer', 'min:0'],
             'status' => ['required', Rule::in(['tersedia', 'habis'])],
         ]);
@@ -125,6 +130,15 @@ class MenuController extends Controller
             return back()
                 ->withErrors(['id_kategori' => 'Kategori tidak sesuai dengan restoran yang dipilih.'])
                 ->withInput();
+        }
+
+        if ($request->hasFile('gambar')) {
+            if (! empty($menu->gambar)) {
+                Storage::disk('public')->delete($menu->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('menu', 'public');
+        } else {
+            unset($validated['gambar']);
         }
 
         $menu->update($validated);
@@ -140,6 +154,11 @@ class MenuController extends Controller
     public function destroy(string $id)
     {
         $menu = Menu::query()->findOrFail($id);
+
+        if (! empty($menu->gambar)) {
+            Storage::disk('public')->delete($menu->gambar);
+        }
+
         $menu->delete();
 
         return redirect()
