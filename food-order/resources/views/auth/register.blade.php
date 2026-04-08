@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daftar - Food Order App</title>
+    <title>Daftar - Santapku</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/logo.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('dist-dashboard/public/assets/css/tailwind.output.css') }}" />
@@ -23,7 +23,7 @@
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <div class="w-full">
                         <h1 class="mb-2 text-2xl font-bold text-gray-700 dark:text-gray-200">
-                            Buat Akun Food Order App
+                            Buat Akun Santapku
                         </h1>
                         <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
                             Daftar untuk mulai memesan makanan favorit
