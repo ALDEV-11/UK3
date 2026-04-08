@@ -9,7 +9,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current" style="color: #E8612A;" />
+                        <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="block h-9 w-auto" />
                     </a>
                 </div>
 

@@ -1,42 +1,46 @@
 @extends('layouts.restoran')
 
 @section('content')
-    <div class="py-6">
+    <div class="py-6" style="background-color: #FFF8F3;">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
-            <h2 class="text-lg font-semibold text-gray-900">Pesanan Masuk</h2>
+            <h2 class="text-xl font-extrabold tracking-tight text-[#2C1810]">Pesanan Masuk</h2>
 
-            <div class="rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+            <div class="overflow-hidden rounded-2xl bg-white p-4 shadow-lg border border-[#F5A623]">
                 <form method="GET" action="{{ route('restoran.pesanan.index') }}" class="grid grid-cols-1 gap-3 md:grid-cols-4">
-                    <input type="text" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Cari kode/metode bayar" class="rounded-md border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <input type="date" name="tanggal_dari" value="{{ $filters['tanggal_dari'] ?? '' }}" class="rounded-md border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <input type="date" name="tanggal_sampai" value="{{ $filters['tanggal_sampai'] ?? '' }}" class="rounded-md border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <button type="submit" class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">Filter</button>
+                    <input type="text" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Cari kode/metode bayar" class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]">
+                    <input type="date" name="tanggal_dari" value="{{ $filters['tanggal_dari'] ?? '' }}" class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]">
+                    <input type="date" name="tanggal_sampai" value="{{ $filters['tanggal_sampai'] ?? '' }}" class="rounded-lg border-[#F5A623] text-sm text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]">
+                    <button type="submit" class="btn-primary">Filter</button>
                 </form>
             </div>
 
-            <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100">
+            <div class="overflow-hidden rounded-2xl bg-white shadow-lg border border-[#F5A623]">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full divide-y divide-[#FFF8F3] text-sm">
+                        <thead style="background-color: #FFF8F3;">
                             <tr>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Kode</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Pelanggan</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Status</th>
-                                <th class="px-4 py-3 text-right font-medium text-gray-600">Total</th>
-                                <th class="px-4 py-3 text-right font-medium text-gray-600">Aksi</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Kode</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Pelanggan</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Status</th>
+                                <th class="px-4 py-3 text-right font-bold text-[#2C1810]">Total</th>
+                                <th class="px-4 py-3 text-right font-bold text-[#2C1810]">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100 bg-white">
+                        <tbody class="divide-y divide-[#FFF8F3] bg-white">
                             @forelse($pesanan as $item)
                                 <tr>
-                                    <td class="px-4 py-3">{{ $item->kode_pesanan }}</td>
-                                    <td class="px-4 py-3">{{ $item->pelanggan->name ?? '-' }}</td>
-                                    <td class="px-4 py-3">{{ strtoupper((string) $item->status) }}</td>
-                                    <td class="px-4 py-3 text-right">Rp {{ number_format((float) $item->grand_total, 0, ',', '.') }}</td>
-                                    <td class="px-4 py-3 text-right"><a href="{{ route('restoran.pesanan.show', $item->id_pesanan) }}" class="text-indigo-600 hover:text-indigo-700">Detail</a></td>
+                                    <td class="px-4 py-3 text-[#2C1810] font-semibold">{{ $item->kode_pesanan }}</td>
+                                    <td class="px-4 py-3 text-[#2C1810]">{{ $item->pelanggan->name ?? '-' }}</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex rounded-full px-3 py-1 text-xs font-bold" style="background-color: #F5A623; color: #2C1810;">
+                                            {{ strtoupper((string) $item->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-right text-[#E8612A] font-bold">Rp {{ number_format((float) $item->grand_total, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-3 text-right"><a href="{{ route('restoran.pesanan.show', $item->id_pesanan) }}" class="btn-detail">Detail</a></td>
                                 </tr>
                             @empty
-                                <tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">Tidak ada pesanan sesuai filter.</td></tr>
+                                <tr><td colspan="5" class="px-4 py-6 text-center text-[#E8612A]">Tidak ada pesanan sesuai filter.</td></tr>
                             @endforelse
                         </tbody>
                     </table>

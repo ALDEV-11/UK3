@@ -4,64 +4,64 @@
 
 @section('page_heading')
     <div class="flex items-center justify-between gap-3">
-        <h1 class="text-xl font-semibold text-gray-800">Detail Pesanan Restoran</h1>
-        <span class="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700"
+        <h1 class="text-xl font-extrabold tracking-tight text-[#2C1810]">Detail Pesanan Restoran</h1>
+        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-bold" style="background-color: #F5A623; color: #2C1810;"
             x-text="(currentStatus || '{{ $pesanan->status }}').toUpperCase()">
         </span>
     </div>
 @endsection
 
 @section('content')
-    <div class="py-6" x-data="statusTimelinePage()" x-init="init()">
+    <div class="py-6" style="background-color: #FFF8F3;" x-data="statusTimelinePage()" x-init="init()">
         <div class="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                <div class="lg:col-span-2 rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-                    <h2 class="text-lg font-semibold text-gray-900">Informasi Pesanan</h2>
+                <div class="lg:col-span-2 overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
+                    <h2 class="text-lg font-extrabold tracking-tight text-[#2C1810]">Informasi Pesanan</h2>
 
-                    <dl class="mt-4 grid grid-cols-1 gap-3 text-sm text-gray-700 sm:grid-cols-2">
+                    <dl class="mt-4 grid grid-cols-1 gap-3 text-sm text-[#2C1810] sm:grid-cols-2">
                         <div>
-                            <dt class="text-gray-500">Kode Pesanan</dt>
-                            <dd class="font-semibold text-gray-900">{{ $pesanan->kode_pesanan }}</dd>
+                            <dt class="text-[#2C1810]">Kode Pesanan</dt>
+                            <dd class="font-semibold text-[#2C1810]">{{ $pesanan->kode_pesanan }}</dd>
                         </div>
                         <div>
-                            <dt class="text-gray-500">Tanggal Pesan</dt>
-                            <dd class="font-semibold text-gray-900">{{ optional($pesanan->tanggal_pesan)->format('d M Y H:i') }}</dd>
+                            <dt class="text-[#2C1810]">Tanggal Pesan</dt>
+                            <dd class="font-semibold text-[#2C1810]">{{ optional($pesanan->tanggal_pesan)->format('d M Y H:i') }}</dd>
                         </div>
                         <div>
-                            <dt class="text-gray-500">Pelanggan</dt>
-                            <dd class="font-semibold text-gray-900">{{ $pesanan->pelanggan->name ?? '-' }}</dd>
+                            <dt class="text-[#2C1810]">Pelanggan</dt>
+                            <dd class="font-semibold text-[#2C1810]">{{ $pesanan->pelanggan->name ?? '-' }}</dd>
                         </div>
                         <div>
-                            <dt class="text-gray-500">Metode Bayar</dt>
-                            <dd class="font-semibold text-gray-900">{{ strtoupper($pesanan->metode_bayar) }}</dd>
+                            <dt class="text-[#2C1810]">Metode Bayar</dt>
+                            <dd class="font-semibold text-[#2C1810]">{{ strtoupper($pesanan->metode_bayar) }}</dd>
                         </div>
                         <div class="sm:col-span-2">
-                            <dt class="text-gray-500">Alamat Kirim</dt>
-                            <dd class="font-semibold text-gray-900">{{ $pesanan->alamat_kirim }}</dd>
+                            <dt class="text-[#2C1810]">Alamat Kirim</dt>
+                            <dd class="font-semibold text-[#2C1810]">{{ $pesanan->alamat_kirim }}</dd>
                         </div>
                     </dl>
 
-                    <div class="mt-5 overflow-x-auto rounded-lg border border-gray-100">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm">
-                            <thead class="bg-gray-50">
+                    <div class="mt-5 overflow-x-auto rounded-lg border border-[#FFF8F3]">
+                        <table class="min-w-full divide-y divide-[#FFF8F3] text-sm">
+                            <thead style="background-color: #FFF8F3;">
                                 <tr>
-                                    <th class="px-3 py-2 text-left font-medium text-gray-600">Menu</th>
-                                    <th class="px-3 py-2 text-left font-medium text-gray-600">Qty</th>
-                                    <th class="px-3 py-2 text-left font-medium text-gray-600">Harga</th>
-                                    <th class="px-3 py-2 text-left font-medium text-gray-600">Subtotal</th>
+                                    <th class="px-3 py-2 text-left font-bold text-[#2C1810]">Menu</th>
+                                    <th class="px-3 py-2 text-left font-bold text-[#2C1810]">Qty</th>
+                                    <th class="px-3 py-2 text-left font-bold text-[#2C1810]">Harga</th>
+                                    <th class="px-3 py-2 text-left font-bold text-[#2C1810]">Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-100 bg-white">
+                            <tbody class="divide-y divide-[#FFF8F3] bg-white">
                                 @forelse($pesanan->detailPesanan as $detail)
                                     <tr>
-                                        <td class="px-3 py-2 text-gray-800">{{ $detail->menu->nama_menu ?? '-' }}</td>
-                                        <td class="px-3 py-2 text-gray-700">{{ $detail->jumlah }}</td>
-                                        <td class="px-3 py-2 text-gray-700">Rp {{ number_format((float) $detail->harga_satuan, 0, ',', '.') }}</td>
-                                        <td class="px-3 py-2 text-gray-700">Rp {{ number_format((float) $detail->subtotal, 0, ',', '.') }}</td>
+                                        <td class="px-3 py-2 text-[#2C1810]">{{ $detail->menu->nama_menu ?? '-' }}</td>
+                                        <td class="px-3 py-2 text-[#2C1810]">{{ $detail->jumlah }}</td>
+                                        <td class="px-3 py-2 text-[#2C1810]">Rp {{ number_format((float) $detail->harga_satuan, 0, ',', '.') }}</td>
+                                        <td class="px-3 py-2 text-[#E8612A] font-bold">Rp {{ number_format((float) $detail->subtotal, 0, ',', '.') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-3 py-4 text-center text-gray-500">Belum ada detail item.</td>
+                                        <td colspan="4" class="px-3 py-4 text-center text-[#E8612A]">Belum ada detail item.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -69,21 +69,21 @@
                     </div>
                 </div>
 
-                <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
+                <div class="overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
                     <div class="flex items-center justify-between gap-2">
-                        <h2 class="text-lg font-semibold text-gray-900">Status Tracker</h2>
+                        <h2 class="text-lg font-extrabold tracking-tight text-[#2C1810]">Status Tracker</h2>
                         <button type="button"
-                            class="rounded-md border border-gray-300 px-3 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-50"
+                            class="rounded-md border border-[#F5A623] px-3 py-1 text-xs font-semibold text-[#2C1810] hover:bg-[#FFF8F3]"
                             @click="fetchTimeline"
                             :disabled="isLoading">
                             Refresh
                         </button>
                     </div>
 
-                    <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-3">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-gray-600">Update Status Pesanan</p>
-                        <p class="mt-1 text-xs text-gray-500">
-                            Status saat ini: <span class="font-semibold text-gray-700" x-text="currentStatus || '-' "></span>
+                    <div class="mt-4 rounded-lg border border-[#F5A623] bg-[#FFF8F3] p-3">
+                        <p class="text-xs font-semibold uppercase tracking-wide text-[#2C1810]">Update Status Pesanan</p>
+                        <p class="mt-1 text-xs text-[#2C1810]">
+                            Status saat ini: <span class="font-semibold text-[#2C1810]" x-text="currentStatus || '-' "></span>
                         </p>
 
                         <template x-if="nextStatusLabel">
@@ -91,11 +91,11 @@
                                 <input type="text"
                                     x-model="keterangan"
                                     placeholder="Keterangan (opsional)"
-                                    class="w-full rounded-md border-gray-300 text-xs shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="w-full rounded-lg border-[#F5A623] text-xs text-[#2C1810] shadow-sm focus:border-[#E8612A] focus:ring-[#E8612A]"
                                     :disabled="isUpdating || isLoading">
 
                                 <button type="button"
-                                    class="inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+                                    class="inline-flex w-full items-center justify-center rounded-md bg-[#E8612A] px-3 py-2 text-xs font-semibold text-[#FFF8F3] hover:bg-[#F5A623] hover:text-[#2C1810] disabled:cursor-not-allowed disabled:opacity-60"
                                     :disabled="isUpdating || isLoading"
                                     @click="updateStatus(nextStatusLabel)">
                                     <svg x-show="isUpdating" class="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -108,20 +108,20 @@
                         </template>
 
                         <template x-if="!nextStatusLabel">
-                            <p class="mt-3 text-xs text-emerald-700">Pesanan sudah pada status final.</p>
+                            <p class="mt-3 text-xs text-[#E8612A]">Pesanan sudah pada status final.</p>
                         </template>
                     </div>
 
                     <template x-if="successMessage">
-                        <div class="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700" x-text="successMessage"></div>
+                        <div class="mt-3 rounded-lg border border-[#E8612A] bg-[#FFF8F3] px-3 py-2 text-xs text-[#E8612A]" x-text="successMessage"></div>
                     </template>
 
                     <template x-if="errorMessage">
-                        <div class="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700" x-text="errorMessage"></div>
+                        <div class="mt-3 rounded-lg border border-[#E8612A] bg-[#FFF8F3] px-3 py-2 text-xs text-[#E8612A]" x-text="errorMessage"></div>
                     </template>
 
                     <template x-if="isLoading">
-                        <div class="mt-3 inline-flex items-center gap-2 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs text-indigo-700">
+                        <div class="mt-3 inline-flex items-center gap-2 rounded-lg border border-[#F5A623] bg-[#FFF8F3] px-3 py-2 text-xs text-[#2C1810]">
                             <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -138,18 +138,18 @@
                                     <span class="h-2.5 w-2.5 rounded-full bg-white"></span>
                                 </span>
 
-                                <span class="absolute left-2.5 top-6 h-full w-px bg-gray-200" x-show="index !== timeline.length - 1"></span>
+                                <span class="absolute left-2.5 top-6 h-full w-px bg-[#F5A623]" x-show="index !== timeline.length - 1"></span>
 
-                                <div class="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-700" x-text="item.status"></p>
-                                    <p class="mt-1 text-xs text-gray-600" x-text="item.keterangan || '-' "></p>
-                                    <p class="mt-1 text-[11px] text-gray-500" x-text="item.waktu_human || item.waktu"></p>
+                                <div class="rounded-lg border border-[#F5A623] bg-[#FFF8F3] px-3 py-2">
+                                    <p class="text-xs font-semibold uppercase tracking-wide text-[#2C1810]" x-text="item.status"></p>
+                                    <p class="mt-1 text-xs text-[#2C1810]" x-text="item.keterangan || '-' "></p>
+                                    <p class="mt-1 text-[11px] text-[#2C1810]" x-text="item.waktu_human || item.waktu"></p>
                                 </div>
                             </li>
                         </template>
                     </ol>
 
-                    <p x-show="!isLoading && timeline.length === 0" class="mt-4 text-xs text-gray-500">Timeline status belum tersedia.</p>
+                    <p x-show="!isLoading && timeline.length === 0" class="mt-4 text-xs text-[#E8612A]">Timeline status belum tersedia.</p>
                 </div>
             </div>
         </div>

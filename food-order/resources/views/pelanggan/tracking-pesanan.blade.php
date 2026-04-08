@@ -3,18 +3,18 @@
 @section('title', 'Tracking Pesanan - ' . config('app.name'))
 
 @section('page_heading')
-    <h1 class="text-xl font-semibold text-gray-800">Tracking Status Pesanan</h1>
+    <h1 class="text-xl font-extrabold tracking-tight text-[#2C1810]">Tracking Status Pesanan</h1>
 @endsection
 
 @section('content')
-    <div class="py-6" x-data="trackingPesananPage()" x-init="init()">
+    <div class="py-6" style="background-color: #FFF8F3;" x-data="trackingPesananPage()" x-init="init()">
         <div class="mx-auto max-w-3xl space-y-6 px-4 sm:px-6 lg:px-8">
-            <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-                <p class="text-sm text-gray-500">Kode Pesanan</p>
-                <p class="mt-1 text-lg font-bold text-gray-900">{{ $kode_pesanan }}</p>
+            <div class="overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
+                <p class="text-sm text-[#2C1810]">Kode Pesanan</p>
+                <p class="mt-1 text-lg font-bold text-[#2C1810]">{{ $kode_pesanan }}</p>
 
                 <template x-if="loading">
-                    <div class="mt-4 inline-flex items-center gap-2 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-sm text-indigo-700">
+                    <div class="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#F5A623] bg-[#FFF8F3] px-3 py-2 text-sm text-[#2C1810]">
                         <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -24,35 +24,35 @@
                 </template>
 
                 <template x-if="errorMessage">
-                    <div class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700" x-text="errorMessage"></div>
+                    <div class="mt-4 rounded-lg border border-[#E8612A] bg-[#FFF8F3] px-3 py-2 text-sm text-[#E8612A]" x-text="errorMessage"></div>
                 </template>
 
-                <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4" x-show="!loading && !errorMessage">
-                    <p class="text-xs uppercase tracking-wide text-gray-500">Status Saat Ini</p>
-                    <p class="mt-1 text-xl font-semibold text-indigo-700" x-text="statusLabel || '-' "></p>
-                    <p class="mt-1 text-xs text-gray-500">Terakhir diperbarui: <span x-text="updatedAt || '-' "></span></p>
-                    <p class="mt-2 text-xs font-semibold" :class="isFinal ? 'text-emerald-700' : 'text-amber-700'" x-text="isFinal ? 'Status final tercapai. Polling dihentikan.' : 'Auto-refresh setiap 10 detik aktif.'"></p>
+                <div class="mt-4 rounded-lg border border-[#F5A623] bg-[#FFF8F3] p-4" x-show="!loading && !errorMessage">
+                    <p class="text-xs uppercase tracking-wide text-[#2C1810]">Status Saat Ini</p>
+                    <p class="mt-1 text-xl font-semibold text-[#E8612A]" x-text="statusLabel || '-' "></p>
+                    <p class="mt-1 text-xs text-[#2C1810]">Terakhir diperbarui: <span x-text="updatedAt || '-' "></span></p>
+                    <p class="mt-2 text-xs font-semibold text-[#2C1810]" x-text="isFinal ? 'Status final tercapai. Polling dihentikan.' : 'Auto-refresh setiap 10 detik aktif.'"></p>
                 </div>
             </div>
 
-            <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-                <h2 class="text-lg font-semibold text-gray-900">Timeline Status</h2>
+            <div class="overflow-hidden rounded-2xl bg-white p-5 shadow-lg border border-[#F5A623]">
+                <h2 class="text-lg font-extrabold tracking-tight text-[#2C1810]">Timeline Status</h2>
 
                 <ol class="mt-4 space-y-3">
                     <template x-for="(item, index) in timeline" :key="`${index}-${item.status}-${item.waktu}`">
                         <li class="relative pl-8">
-                            <span class="absolute left-0 top-1 h-4 w-4 rounded-full bg-indigo-500"></span>
-                            <span class="absolute left-2 top-5 h-full w-px bg-gray-200" x-show="index !== timeline.length - 1"></span>
+                            <span class="absolute left-0 top-1 h-4 w-4 rounded-full bg-[#E8612A]"></span>
+                            <span class="absolute left-2 top-5 h-full w-px bg-[#F5A623]" x-show="index !== timeline.length - 1"></span>
 
-                            <div class="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
-                                <p class="text-sm font-semibold text-gray-800" x-text="item.label"></p>
-                                <p class="text-xs text-gray-500" x-text="item.waktu"></p>
+                            <div class="rounded-lg border border-[#F5A623] bg-[#FFF8F3] px-3 py-2">
+                                <p class="text-sm font-semibold text-[#2C1810]" x-text="item.label"></p>
+                                <p class="text-xs text-[#2C1810]" x-text="item.waktu"></p>
                             </div>
                         </li>
                     </template>
                 </ol>
 
-                <p class="mt-3 text-sm text-gray-500" x-show="timeline.length === 0 && !loading">Belum ada timeline status.</p>
+                <p class="mt-3 text-sm text-[#E8612A]" x-show="timeline.length === 0 && !loading">Belum ada timeline status.</p>
             </div>
         </div>
     </div>
