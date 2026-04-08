@@ -1,50 +1,50 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="py-6">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
+    <div class="py-6" style="background-color: #FFF8F3;">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
             @if (session('success'))
-                <div class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">{{ session('success') }}</div>
+                <div class="rounded-lg border border-[#E8612A] bg-[#FFF8F3] px-4 py-3 text-sm text-[#E8612A] font-semibold">{{ session('success') }}</div>
             @endif
 
             <div class="flex items-center justify-between gap-3">
-                <h2 class="text-lg font-semibold text-gray-900">Daftar Menu</h2>
-                <a href="{{ route('admin.menu.create') }}" class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">+ Tambah Menu</a>
+                <h2 class="text-xl font-extrabold tracking-tight" style="color: #2C1810;">Daftar Menu</h2>
+                <a href="{{ route('admin.menu.create') }}" class="btn-add">+ Tambah Menu</a>
             </div>
 
-            <div class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100">
+            <div class="overflow-hidden rounded-2xl bg-white shadow-lg border border-[#F5A623]">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full divide-y divide-[#FFF8F3] text-sm">
+                        <thead style="background-color: #FFF8F3;">
                             <tr>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Nama Menu</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Restoran</th>
-                                <th class="px-4 py-3 text-left font-medium text-gray-600">Kategori</th>
-                                <th class="px-4 py-3 text-right font-medium text-gray-600">Harga</th>
-                                <th class="px-4 py-3 text-right font-medium text-gray-600">Aksi</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Nama Menu</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Restoran</th>
+                                <th class="px-4 py-3 text-left font-bold text-[#2C1810]">Kategori</th>
+                                <th class="px-4 py-3 text-right font-bold text-[#2C1810]">Harga</th>
+                                <th class="px-4 py-3 text-right font-bold text-[#2C1810]">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100 bg-white">
+                        <tbody class="divide-y divide-[#FFF8F3] bg-white">
                             @forelse($menu as $item)
                                 <tr>
-                                    <td class="px-4 py-3">{{ $item->nama_menu }}</td>
-                                    <td class="px-4 py-3">{{ $item->restoran->nama_restoran ?? '-' }}</td>
-                                    <td class="px-4 py-3">{{ $item->kategori->nama_kategori ?? '-' }}</td>
-                                    <td class="px-4 py-3 text-right">Rp {{ number_format((float) $item->harga, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-3 text-[#2C1810] font-semibold">{{ $item->nama_menu }}</td>
+                                    <td class="px-4 py-3 text-[#2C1810]">{{ $item->restoran->nama_restoran ?? '-' }}</td>
+                                    <td class="px-4 py-3 text-[#2C1810]">{{ $item->kategori->nama_kategori ?? '-' }}</td>
+                                    <td class="px-4 py-3 text-right text-[#E8612A] font-bold">Rp {{ number_format((float) $item->harga, 0, ',', '.') }}</td>
                                     <td class="px-4 py-3 text-right">
                                         <div class="inline-flex items-center gap-3">
-                                            <a href="{{ route('admin.menu.show', $item->id_menu) }}" class="text-indigo-600 hover:text-indigo-700">Detail</a>
-                                            <a href="{{ route('admin.menu.edit', $item->id_menu) }}" class="text-amber-600 hover:text-amber-700">Edit</a>
-                                            <form method="POST" action="{{ route('admin.menu.destroy', $item->id_menu) }}" onsubmit="return confirm('Yakin hapus menu ini?')">
+                                            <a href="{{ route('admin.menu.show', $item->id_menu) }}" class="btn-detail">Detail</a>
+                                            <a href="{{ route('admin.menu.edit', $item->id_menu) }}" class="btn-primary">Edit</a>
+                                            <form method="POST" action="{{ route('admin.menu.destroy', $item->id_menu) }}" onsubmit="return confirm('Yakin hapus menu ini?')" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-rose-600 hover:text-rose-700">Hapus</button>
+                                                <button type="submit" class="btn-delete">Hapus</button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">Belum ada menu.</td></tr>
+                                <tr><td colspan="5" class="px-4 py-6 text-center text-[#E8612A]">Belum ada menu.</td></tr>
                             @endforelse
                         </tbody>
                     </table>

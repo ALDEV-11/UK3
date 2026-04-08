@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" style="background-color: #FFF; border-bottom: 3px solid #E8612A;">
     @php($role = Auth::user()?->role)
     @php($ulasanCount = $role === 'pelanggan' ? (int) (Auth::user()?->ulasan()->count() ?? 0) : 0)
     @php($isUlasanActive = request()->routeIs('pelanggan.ulasan.*'))
@@ -9,7 +9,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="block h-9 w-auto fill-current" style="color: #E8612A;" />
                     </a>
                 </div>
 
@@ -100,7 +100,7 @@
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md" style="background-color: #FFF8F3; color: #2C1810;" onmouseover="this.style.backgroundColor='#F5A623';this.style.color='#2C1810';" onmouseout="this.style.backgroundColor='#FFF8F3';this.style.color='#2C1810';">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -143,7 +143,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden" style="background-color: #2C1810;">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -181,7 +181,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t" style="border-color: #E8612A;">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
@@ -205,6 +205,41 @@
             </div>
         </div>
     </div>
+<style>
+    nav .sm\:flex a, nav .sm\:flex button, nav .sm\:flex .dropdown-toggle {
+        color: #E8612A !important;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        transition: color 0.2s, border-bottom 0.2s;
+        background: transparent;
+        text-decoration: none;
+        box-shadow: none;
+    }
+    nav .sm\:flex a:hover, nav .sm\:flex button:hover, nav .sm\:flex .dropdown-toggle:hover {
+        background: transparent !important;
+        color: #F5A623 !important;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        box-shadow: none;
+    }
+    nav .sm\:flex .active {
+        background: transparent !important;
+        color: #F5A623 !important;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+    nav .dropdown-menu {
+        background-color: #FFF8F3 !important;
+        color: #2C1810 !important;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(44,24,16,0.08);
+    }
+    nav .dropdown-menu a:hover {
+        background-color: #F5A623 !important;
+        color: #E8612A !important;
+    }
+</style>
 </nav>
 
 <script>
