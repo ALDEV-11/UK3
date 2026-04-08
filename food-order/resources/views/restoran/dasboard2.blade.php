@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between gap-3">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard Restoran</h2>
             <span class="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
-                Restoran uhuy
+                Restoran cihuy
             </span>
         </div>
     </x-slot>
