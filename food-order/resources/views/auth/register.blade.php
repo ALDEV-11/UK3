@@ -1,71 +1,156 @@
-<x-guest-layout>
-    <div class="w-full max-w-md mx-auto px-4 py-6 sm:px-0">
-        <div class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 sm:p-6">
-            <h1 class="text-xl font-semibold text-gray-900">Daftar Akun Pelanggan</h1>
-            <p class="mt-1 text-sm text-gray-600">Form ini hanya untuk pendaftaran akun pelanggan.</p>
+<!DOCTYPE html>
+<html lang="en">
 
-            <form method="POST" action="{{ route('register') }}" class="mt-6 space-y-4">
-                @csrf
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar - Food Order App</title>
+    <link rel="icon" type="image/png" href="{{ asset('storage/logo.png') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('dist-dashboard/public/assets/css/tailwind.output.css') }}" />
+</head>
 
-                <div>
-                    <x-input-label for="name" value="Nama Lengkap" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Contoh: Budi Santoso" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+<body>
+    <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+        <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+            <div class="flex flex-col overflow-y-auto md:flex-row">
+                <div class="h-32 md:h-auto md:w-1/2">
+                    <img aria-hidden="true" class="object-cover w-full h-full dark:hidden"
+                        src="{{ asset('dist-dashboard/public/assets/img/login-office.jpeg') }}" alt="Office" />
+                    <img aria-hidden="true" class="hidden object-cover w-full h-full dark:block"
+                        src="{{ asset('dist-dashboard/public/assets/img/login-office-dark.jpeg') }}" alt="Office" />
                 </div>
+                <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+                    <div class="w-full">
+                        <h1 class="mb-2 text-2xl font-bold text-gray-700 dark:text-gray-200">
+                            Buat Akun Food Order App
+                        </h1>
+                        <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+                            Daftar untuk mulai memesan makanan favorit
+                        </p>
 
-                <div>
-                    <x-input-label for="username" value="Username" />
-                    <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" placeholder="Contoh: budi123" />
-                    <p class="mt-1 text-xs text-gray-500">Hanya huruf, angka, tanda minus (-), dan underscore (_).</p>
-                    <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                        <!-- Session Status -->
+                        @if ($errors->any())
+                            <div
+                                class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900 dark:border-red-700">
+                                <div class="text-sm text-red-600 dark:text-red-200">
+                                    @foreach ($errors->all() as $error)
+                                        <p>• {{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                            @csrf
+
+                            <!-- Nama Lengkap -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Nama Lengkap</span>
+                                <input type="text" name="name" value="{{ old('name') }}" required autofocus
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('name') border-red-500 @enderror"
+                                    placeholder="Masukkan nama lengkap" />
+                                @error('name')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Username -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Username</span>
+                                <input type="text" name="username" value="{{ old('username') }}" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('username') border-red-500 @enderror"
+                                    placeholder="Contoh: budi_santoso" />
+                                @error('username')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Email Address -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Email</span>
+                                <input type="email" name="email" value="{{ old('email') }}" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('email') border-red-500 @enderror"
+                                    placeholder="nama@example.com" />
+                                @error('email')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- No Telepon -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">No. Telepon</span>
+                                <input type="tel" name="no_telp" value="{{ old('no_telp') }}" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('no_telp') border-red-500 @enderror"
+                                    placeholder="Contoh: 08123456789" />
+                                @error('no_telp')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Alamat -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Alamat</span>
+                                <textarea name="alamat" rows="3" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('alamat') border-red-500 @enderror"
+                                    placeholder="Masukkan alamat lengkap">{{ old('alamat') }}</textarea>
+                                @error('alamat')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Password -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Password</span>
+                                <input type="password" name="password" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password') border-red-500 @enderror"
+                                    placeholder="Minimal 8 karakter" />
+                                @error('password')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Konfirmasi Password -->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">Konfirmasi Password</span>
+                                <input type="password" name="password_confirmation" required
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password_confirmation') border-red-500 @enderror"
+                                    placeholder="Ulangi password" />
+                                @error('password_confirmation')
+                                    <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                                @enderror
+                            </label>
+
+                            <!-- Submit Button -->
+                            <button type="submit"
+                                class="block w-full px-4 py-2 mt-6 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                Daftar
+                            </button>
+                        </form>
+
+                        <hr class="my-6" />
+
+                        <!-- Login Link -->
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Sudah punya akun?
+                                <a class="font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                                    href="{{ route('login') }}">
+                                    Login di sini
+                                </a>
+                            </p>
+                        </div>
+                        <div class="text-center mt-4 border-t pt-4 dark:border-gray-700">
+                            <a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors duration-150"
+                                href="{{ url('/') }}">
+                                ← Kembali ke Halaman Utama
+                            </a>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <x-input-label for="email" value="Email" />
-                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" placeholder="contoh@email.com" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                </div>
-
-                <div>
-                    <x-input-label for="no_telp" value="Nomor Telepon (Opsional)" />
-                    <x-text-input id="no_telp" class="block mt-1 w-full" type="text" name="no_telp" :value="old('no_telp')" autocomplete="tel" placeholder="08xxxxxxxxxx" />
-                    <x-input-error :messages="$errors->get('no_telp')" class="mt-2" />
-                </div>
-
-                <div>
-                    <x-input-label for="alamat" value="Alamat (Opsional)" />
-                    <textarea
-                        id="alamat"
-                        name="alamat"
-                        rows="3"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                        placeholder="Masukkan alamat lengkap"
-                    >{{ old('alamat') }}</textarea>
-                    <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
-                </div>
-
-                <div>
-                    <x-input-label for="password" value="Password" />
-                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" placeholder="Minimal 8 karakter" />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                </div>
-
-                <div>
-                    <x-input-label for="password_confirmation" value="Konfirmasi Password" />
-                    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Ulangi password" />
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                </div>
-
-                <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                    <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('login') }}">
-                        Sudah punya akun? Masuk
-                    </a>
-
-                    <x-primary-button class="w-full justify-center sm:w-auto">
-                        Daftar Sekarang
-                    </x-primary-button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</x-guest-layout>
+</body>
+
+</html>

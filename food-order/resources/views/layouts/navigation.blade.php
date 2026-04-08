@@ -53,10 +53,13 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="relative" x-data="notifDropdown()" x-init="init()" @click.outside="dropdownOpen = false">
                     <button type="button"
-                        class="relative inline-flex items-center rounded-md px-3 py-2 text-sm text-gray-600 hover:text-gray-800"
+                        class="relative inline-flex items-center rounded-md px-3 py-2 text-sm text-[#2C1810] hover:text-[#E8612A]"
                         title="Notifikasi"
                         @click="dropdownOpen = !dropdownOpen">
-                        <span>🔔</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2.75a5.25 5.25 0 00-5.25 5.25v2.386c0 .72-.173 1.43-.505 2.07L4.72 15.5A2.25 2.25 0 006.72 18.75h10.56a2.25 2.25 0 002-3.25l-1.525-3.04a4.5 4.5 0 01-.505-2.07V8A5.25 5.25 0 0012 2.75z" />
+                            <path d="M9.75 19.5a2.25 2.25 0 104.5 0h-4.5z" />
+                        </svg>
                         <span x-show="unreadCount > 0"
                             class="absolute -right-1 -top-1 min-w-5 rounded-full bg-rose-500 px-1.5 py-0.5 text-center text-[10px] font-bold text-white"
                             x-text="unreadCount"></span>
