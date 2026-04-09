@@ -208,15 +208,15 @@
 
                                         <div class="flex gap-2 flex-wrap justify-end">
                                             @if($pesanan->status === 'menunggu')
-                                                <a href="{{ route('restoran.pesanan.update', ['pesanan' => $pesanan->id_pesanan, 'status' => 'dikonfirmasi']) }}" method="POST" class="rounded-lg px-3 py-1 text-xs font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">
-                                                    Konfirmasi
+                                                <a href="{{ route('restoran.pesanan.show', ['id_pesanan' => $pesanan->id_pesanan]) }}" class="rounded-lg px-3 py-1 text-xs font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">
+                                                    Tinjau Pesanan
                                                 </a>
-                                                <a href="#" class="rounded-lg px-3 py-1 text-xs font-bold text-white bg-rose-500 hover:opacity-90 transition-opacity">
-                                                    Tolak
+                                                <a href="{{ route('restoran.pesanan.show', ['id_pesanan' => $pesanan->id_pesanan]) }}" class="rounded-lg px-3 py-1 text-xs font-bold text-white bg-rose-500 hover:opacity-90 transition-opacity">
+                                                    Lihat Detail
                                                 </a>
                                             @elseif($pesanan->status === 'dikonfirmasi')
-                                                <a href="#" class="rounded-lg px-3 py-1 text-xs font-bold text-white" style="background-color: #E8612A; hover:opacity-90 transition-opacity">
-                                                    Mulai Masak
+                                                <a href="{{ route('restoran.pesanan.show', ['id_pesanan' => $pesanan->id_pesanan]) }}" class="rounded-lg px-3 py-1 text-xs font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">
+                                                    Proses Pesanan
                                                 </a>
                                             @endif
                                         </div>

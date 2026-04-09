@@ -305,51 +305,112 @@
           </div>
         </section>
         <!-- Menu Preview Section -->
-        <section id="menu-preview">
-          <div class="bg-base-100 py-8 sm:py-16 lg:py-24">
-            <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-              <!-- Section Header -->
-              <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-                <h2 class="text-base-content text-2xl font-semibold md:text-3xl lg:text-4xl">Featured Menu Items</h2>
-                <p class="text-base-content/80 text-xl">Discover our most popular dishes crafted with fresh ingredients and authentic recipes</p>
-              </div>
-              <!-- Menu Grid -->
-              <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                @php
-                  $menus = \DB::table('menu')->limit(4)->get();
-                @endphp
-                @forelse($menus as $menu)
-                  <div class="card card-border shadow-none hover:shadow-md transition-shadow">
-                    <figure class="bg-base-200 h-40 flex items-center justify-center">
-                      <img src="{{ asset('dist-landing/assets/img/free-blog-1.png') }}" alt="{{ $menu->nama_menu }}" class="h-full w-full object-cover" />
-                    </figure>
-                    <div class="card-body gap-2">
-                      <h5 class="card-title text-lg">{{ $menu->nama_menu }}</h5>
-                      <p class="text-base-content/70 text-sm line-clamp-2">{{ $menu->deskripsi }}</p>
-                      <div class="flex items-center justify-between mt-2">
-                        <span class="text-primary font-bold text-lg">Rp {{ number_format($menu->harga, 0, ',', '.') }}</span>
-                        <span class="badge badge-sm {{ $menu->stok > 0 ? 'badge-success' : 'badge-error' }}">
-                          {{ $menu->stok > 0 ? 'Tersedia' : 'Habis' }}
-                        </span>
+        <section id="menu-preview" class="py-8 sm:py-16 lg:py-24" style="background-color: #FFF;">
+          <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Menu Pilihan Kami</h2>
+              <p class="text-lg" style="color: #666;">Coba hidangan lezat kami yang dibuat dengan bahan-bahan segar dan resep autentik</p>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              @php
+                $menus = \App\Models\Menu::with('restoran', 'kategori')
+                  ->where('status', 'tersedia')
+                  ->where('stok', '>', 0)
+                  ->inRandomOrder()
+                  ->limit(8)
+                  ->get();
+              @endphp
+              @forelse($menus as $menu)
+                <div class="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white border-2 hover:-translate-y-1" style="border-color: #F5A623;">
+                  <!-- Image Container -->
+                  <div class="relative h-48 bg-gray-200 overflow-hidden group">
+                    @php
+                      $menuImagePath = ltrim((string) $menu->gambar, '/');
+                      $menuImagePath = str_starts_with($menuImagePath, 'storage/') ? substr($menuImagePath, 8) : $menuImagePath;
+                      $restoImagePathFromMenu = ltrim((string) ($menu->restoran->gambar ?? ''), '/');
+                      $restoImagePathFromMenu = str_starts_with($restoImagePathFromMenu, 'storage/') ? substr($restoImagePathFromMenu, 8) : $restoImagePathFromMenu;
+                    @endphp
+                    @if($menuImagePath !== '' && \Storage::disk('public')->exists($menuImagePath))
+                      <img src="{{ asset('storage/' . $menuImagePath) }}" alt="{{ $menu->nama_menu }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                    @elseif($restoImagePathFromMenu !== '' && \Storage::disk('public')->exists($restoImagePathFromMenu))
+                      <img src="{{ asset('storage/' . $restoImagePathFromMenu) }}" alt="{{ $menu->restoran->nama_restoran ?? $menu->nama_menu }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                    @else
+                      <div class="flex flex-col items-center justify-center h-full text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                          <path d="M2 3a1 1 0 0 1 1-1h2.153a1 1 0 0 1 .986.804l.213 1.392c.159 1.04 1.27 1.696 2.324 1.696h6.864c1.054 0 2.165-.656 2.324-1.696l.213-1.392A1 1 0 0 1 18.847 2H20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z"/>
+                        </svg>
+                        <span class="text-xs mt-2">Tidak ada gambar</span>
                       </div>
-                      <div class="card-actions">
-                        <button class="btn btn-primary btn-sm w-full">Order Now</button>
-                      </div>
+                    @endif
+                    <!-- Kategori Badge -->
+                    @if($menu->kategori)
+                      <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #E8612A;">
+                        {{ $menu->kategori->nama_kategori }}
+                      </span>
+                    @endif
+                    <!-- Stok Badge -->
+                    @if($menu->stok <= 5)
+                      <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #FF6B6B;">
+                        Stok {{ $menu->stok }}
+                      </span>
+                    @endif
+                  </div>
+
+                  <!-- Content Container -->
+                  <div class="p-4 space-y-3">
+                    <!-- Title -->
+                    <div>
+                      <h5 class="text-lg font-bold line-clamp-1" style="color: #2C1810;">{{ $menu->nama_menu }}</h5>
+                      <p class="text-xs mt-1 flex items-center gap-1" style="color: #999;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                          <path d="M11 3a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm8-4a1 1 0 0 0-1-1h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm-14 0a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm11.66-6.66a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm-8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zM4.22 4.22a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41z"/>
+                        </svg>
+                        <span>{{ $menu->restoran->nama_restoran ?? '-' }}</span>
+                      </p>
                     </div>
+
+                    <!-- Description -->
+                    <p class="text-sm line-clamp-2" style="color: #666;">
+                      {{ $menu->deskripsi ?? 'Menu lezat pilihan kami' }}
+                    </p>
+
+                    <!-- Price & Stock -->
+                    <div class="flex items-center justify-between pt-2 border-t" style="border-color: #F5A623;">
+                      <span class="text-lg font-bold" style="color: #E8612A;">
+                        Rp {{ number_format($menu->harga, 0, ',', '.') }}
+                      </span>
+                      <span class="text-xs font-semibold" style="color: #999;">
+                        Stok: {{ $menu->stok }}
+                      </span>
+                    </div>
+
+                    <!-- Button -->
+                    <a href="{{ route('pelanggan.menu.search') }}" class="block w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg text-sm" style="background-color: #E8612A;">
+                      Pesan
+                    </a>
                   </div>
-                @empty
-                  <div class="col-span-full text-center py-12">
-                    <p class="text-base-content/60">No menu items available</p>
-                  </div>
-                @endforelse
-              </div>
-              <br>
-              <div class="mt-12 text-center">
-                <a href="#menu-preview" class="btn btn-primary btn-lg">
-                  View All Menu
-                  <span class="icon-[tabler--arrow-right] size-5"></span>
-                </a>
-              </div>
+                </div>
+              @empty
+                <div class="col-span-full text-center py-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 mx-auto text-gray-300">
+                    <path d="M2 3a1 1 0 0 1 1-1h2.153a1 1 0 0 1 .986.804l.213 1.392c.159 1.04 1.27 1.696 2.324 1.696h6.864c1.054 0 2.165-.656 2.324-1.696l.213-1.392A1 1 0 0 1 18.847 2H20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z"/>
+                  </svg>
+                  <p class="text-lg mt-4" style="color: #999;">Belum ada menu yang tersedia</p>
+                </div>
+              @endforelse
+            </div>
+
+            <!-- View All Button -->
+            <div class="mt-16 text-center">
+              <a href="{{ route('pelanggan.menu.search') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                Lihat Semua Menu
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
             </div>
           </div>
         </section>
@@ -370,8 +431,12 @@
                 <div class="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white border-2" style="border-color: #F5A623;">
                   <!-- Image Container -->
                   <div class="relative h-56 bg-gray-200 overflow-hidden group">
-                    @if($r->gambar && \Storage::exists('public/' . $r->gambar))
-                      <img src="{{ asset('storage/' . $r->gambar) }}" alt="{{ $r->nama_restoran }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                    @php
+                      $restoranImagePath = ltrim((string) $r->gambar, '/');
+                      $restoranImagePath = str_starts_with($restoranImagePath, 'storage/') ? substr($restoranImagePath, 8) : $restoranImagePath;
+                    @endphp
+                    @if($restoranImagePath !== '' && \Storage::disk('public')->exists($restoranImagePath))
+                      <img src="{{ asset('storage/' . $restoranImagePath) }}" alt="{{ $r->nama_restoran }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                     @else
                       <div class="flex flex-col items-center justify-center h-full text-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">

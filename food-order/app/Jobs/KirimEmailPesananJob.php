@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\PesananDikirimMail;
+use App\Mail\PesananDimasakMail;
 use App\Mail\PesananDikonfirmasiMail;
 use App\Mail\PesananDiterimaMail;
 use App\Mail\PesananSelesaiMail;
@@ -39,6 +40,7 @@ class KirimEmailPesananJob implements ShouldQueue
         $mailable = match ($this->status) {
             'menunggu' => new PesananDiterimaMail($this->pesanan),
             'dikonfirmasi' => new PesananDikonfirmasiMail($this->pesanan),
+            'dimasak' => new PesananDimasakMail($this->pesanan),
             'dikirim' => new PesananDikirimMail($this->pesanan),
             'selesai' => new PesananSelesaiMail($this->pesanan),
             default => null,

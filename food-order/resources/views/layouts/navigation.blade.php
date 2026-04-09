@@ -55,7 +55,7 @@
                     <button type="button"
                         class="relative inline-flex items-center rounded-md px-3 py-2 text-sm text-[#2C1810] hover:text-[#E8612A]"
                         title="Notifikasi"
-                        @click="dropdownOpen = !dropdownOpen">
+                        @click="toggleDropdown">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M12 2.75a5.25 5.25 0 00-5.25 5.25v2.386c0 .72-.173 1.43-.505 2.07L4.72 15.5A2.25 2.25 0 006.72 18.75h10.56a2.25 2.25 0 002-3.25l-1.525-3.04a4.5 4.5 0 01-.505-2.07V8A5.25 5.25 0 0012 2.75z" />
                             <path d="M9.75 19.5a2.25 2.25 0 104.5 0h-4.5z" />
@@ -253,10 +253,25 @@
             unreadCount: 0,
             isLoading: false,
             pollingTimer: null,
+            listPollingTimer: null,
 
             async init() {
                 await Promise.all([this.fetchUnreadCount(), this.fetchNotifications()]);
                 this.pollingTimer = setInterval(() => this.fetchUnreadCount(), 30000);
+                this.listPollingTimer = setInterval(async () => {
+                    if (document.visibilityState !== 'visible') return;
+                    await this.fetchUnreadCount();
+                    if (this.dropdownOpen) {
+                        await this.fetchNotifications();
+                    }
+                }, 10000);
+            },
+
+            async toggleDropdown() {
+                this.dropdownOpen = !this.dropdownOpen;
+                if (this.dropdownOpen) {
+                    await Promise.all([this.fetchUnreadCount(), this.fetchNotifications()]);
+                }
             },
 
             async fetchUnreadCount() {
