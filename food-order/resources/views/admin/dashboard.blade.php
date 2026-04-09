@@ -102,6 +102,7 @@
                         </div>
                     </div>
 
+                    {{-- NONAKTIF: Card Pendapatan Hari Ini
                     <div class="rounded-2xl bg-white p-5 shadow-md border border-[#F5A623]">
                         <div class="flex items-center justify-between">
                             <div>
@@ -115,6 +116,7 @@
                             </div>
                         </div>
                     </div>
+                    --}}
 
                     <div class="rounded-2xl bg-white p-5 shadow-md border border-[#F5A623]">
                         <div class="flex items-center justify-between">

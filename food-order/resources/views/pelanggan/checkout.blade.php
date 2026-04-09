@@ -62,7 +62,7 @@
 
                         <input type="hidden" name="kode_voucher" value="{{ old('kode_voucher', $voucher['kode_voucher'] ?? '') }}">
 
-                        <button type="submit" class="btn-primary">Proses Checkout</button>
+                        <button type="submit" class="btn-primary">Pesan Sekarang</button>
                     </form>
                 </div>
 

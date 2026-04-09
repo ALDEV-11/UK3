@@ -309,8 +309,8 @@
           <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
             <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Menu Pilihan Kami</h2>
-              <p class="text-lg" style="color: #666;">Coba hidangan lezat kami yang dibuat dengan bahan-bahan segar dan resep autentik</p>
+              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Our Featured Menu</h2>
+              <p class="text-lg" style="color: #666;">Try our delicious dishes made with fresh ingredients and authentic recipes</p>
             </div>
 
             <!-- Menu Grid -->
@@ -330,19 +330,15 @@
                     @php
                       $menuImagePath = ltrim((string) $menu->gambar, '/');
                       $menuImagePath = str_starts_with($menuImagePath, 'storage/') ? substr($menuImagePath, 8) : $menuImagePath;
-                      $restoImagePathFromMenu = ltrim((string) ($menu->restoran->gambar ?? ''), '/');
-                      $restoImagePathFromMenu = str_starts_with($restoImagePathFromMenu, 'storage/') ? substr($restoImagePathFromMenu, 8) : $restoImagePathFromMenu;
                     @endphp
                     @if($menuImagePath !== '' && \Storage::disk('public')->exists($menuImagePath))
                       <img src="{{ asset('storage/' . $menuImagePath) }}" alt="{{ $menu->nama_menu }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                    @elseif($restoImagePathFromMenu !== '' && \Storage::disk('public')->exists($restoImagePathFromMenu))
-                      <img src="{{ asset('storage/' . $restoImagePathFromMenu) }}" alt="{{ $menu->restoran->nama_restoran ?? $menu->nama_menu }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                     @else
                       <div class="flex flex-col items-center justify-center h-full text-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
                           <path d="M2 3a1 1 0 0 1 1-1h2.153a1 1 0 0 1 .986.804l.213 1.392c.159 1.04 1.27 1.696 2.324 1.696h6.864c1.054 0 2.165-.656 2.324-1.696l.213-1.392A1 1 0 0 1 18.847 2H20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z"/>
                         </svg>
-                        <span class="text-xs mt-2">Tidak ada gambar</span>
+                        <span class="text-xs mt-2">No image available</span>
                       </div>
                     @endif
                     <!-- Kategori Badge -->
@@ -354,7 +350,7 @@
                     <!-- Stok Badge -->
                     @if($menu->stok <= 5)
                       <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #FF6B6B;">
-                        Stok {{ $menu->stok }}
+                        Stock {{ $menu->stok }}
                       </span>
                     @endif
                   </div>
@@ -365,7 +361,7 @@
                     <div>
                       <h5 class="text-lg font-bold line-clamp-1" style="color: #2C1810;">{{ $menu->nama_menu }}</h5>
                       <p class="text-xs mt-1 flex items-center gap-1" style="color: #999;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                        {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"> --}}
                           <path d="M11 3a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm8-4a1 1 0 0 0-1-1h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm-14 0a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm11.66-6.66a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm-8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zM4.22 4.22a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41z"/>
                         </svg>
                         <span>{{ $menu->restoran->nama_restoran ?? '-' }}</span>
@@ -374,7 +370,7 @@
 
                     <!-- Description -->
                     <p class="text-sm line-clamp-2" style="color: #666;">
-                      {{ $menu->deskripsi ?? 'Menu lezat pilihan kami' }}
+                      {{ $menu->deskripsi ?? 'A delicious selection from our kitchen' }}
                     </p>
 
                     <!-- Price & Stock -->
@@ -383,13 +379,13 @@
                         Rp {{ number_format($menu->harga, 0, ',', '.') }}
                       </span>
                       <span class="text-xs font-semibold" style="color: #999;">
-                        Stok: {{ $menu->stok }}
+                        Stock: {{ $menu->stok }}
                       </span>
                     </div>
 
                     <!-- Button -->
-                    <a href="{{ route('pelanggan.menu.search') }}" class="block w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg text-sm" style="background-color: #E8612A;">
-                      Pesan
+                    <a href="{{ route('login') }}" class="block w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg text-sm" style="background-color: #E8612A;">
+                      Order Now
                     </a>
                   </div>
                 </div>
@@ -398,15 +394,15 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 mx-auto text-gray-300">
                     <path d="M2 3a1 1 0 0 1 1-1h2.153a1 1 0 0 1 .986.804l.213 1.392c.159 1.04 1.27 1.696 2.324 1.696h6.864c1.054 0 2.165-.656 2.324-1.696l.213-1.392A1 1 0 0 1 18.847 2H20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3Z"/>
                   </svg>
-                  <p class="text-lg mt-4" style="color: #999;">Belum ada menu yang tersedia</p>
+                  <p class="text-lg mt-4" style="color: #999;">No menu is currently available</p>
                 </div>
               @endforelse
             </div>
-
+            <br>
             <!-- View All Button -->
             <div class="mt-16 text-center">
-              <a href="{{ route('pelanggan.menu.search') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
-                Lihat Semua Menu
+              <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                View All Menu
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -419,8 +415,8 @@
           <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
             <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Restoran Terbaik</h2>
-              <p class="text-lg" style="color: #666;">Jelajahi berbagai pilihan restoran favorit dan nikmati pengalaman bersantap terbaik</p>
+              <h2 class="text-3xl font-bold md:text-4xl lg:text-5xl" style="color: #2C1810;">Top Restaurants</h2>
+              <p class="text-lg" style="color: #666;">Explore favorite restaurants and enjoy the best dining experience</p>
             </div>
             <!-- Restaurants Grid -->
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -442,12 +438,12 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">
                           <path d="M11 3a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm8-4a1 1 0 0 0-1-1h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm-14 0a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm11.66-6.66a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm-8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zM4.22 4.22a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41zm8.48 8.48a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 1.41 1.41l.71-.7a1 1 0 0 0 0-1.41z"/>
                         </svg>
-                        <span class="text-sm mt-2">Tidak ada gambar</span>
+                        <span class="text-sm mt-2">No image available</span>
                       </div>
                     @endif
                     <!-- Status Badge -->
                     @if($r->status === 'aktif')
-                      <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #E8612A;">Buka</span>
+                      <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-white text-xs font-semibold" style="background-color: #E8612A;">Open</span>
                     @endif
                   </div>
 
@@ -456,7 +452,7 @@
                     <!-- Title & Description -->
                     <div>
                       <h3 class="text-xl font-bold mb-2" style="color: #2C1810;">{{ $r->nama_restoran }}</h3>
-                      <p class="text-sm line-clamp-2" style="color: #666;">{{ $r->deskripsi ?? 'Nikmati kuliner lezat dengan pelayanan terbaik' }}</p>
+                      <p class="text-sm line-clamp-2" style="color: #666;">{{ $r->deskripsi ?? 'Enjoy delicious cuisine with excellent service' }}</p>
                     </div>
 
                     <!-- Rating & Location -->
@@ -477,23 +473,23 @@
 
                     <!-- Button -->
                     <div class="pt-2">
-                      <a href="{{ route('restoran.public.show', ['slug' => $r->slug]) }}" class="w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
-                        Pesan Sekarang
+                      <a href="{{ route('login') }}" class="w-full py-2 px-4 rounded-lg font-semibold text-white text-center transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                        Order Now
                       </a>
                     </div>
                   </div>
                 </div>
               @empty
                 <div class="col-span-full text-center py-16">
-                  <p class="text-lg" style="color: #666;">Belum ada restoran yang tersedia</p>
+                  <p class="text-lg" style="color: #666;">No restaurants are currently available</p>
                 </div>
               @endforelse
             </div>
-
+              <br>
             <!-- View All Button -->
             <div class="mt-16 text-center">
-              <a href="{{ route('pelanggan.menu.search') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
-                Lihat Semua Restoran
+              <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-white text-lg transition-all duration-300 hover:shadow-lg" style="background-color: #E8612A;">
+                View All Restaurants
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -503,7 +499,7 @@
         </section>
         <!-- Active Vouchers/Promos Section -->
         <section id="vouchers">
-          <div class="bg-base-100 py-8 sm:py-16 lg:py-24">
+          <div class="bg-base-200 py-8 sm:py-16 lg:py-24">
             <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
               <!-- Section Header -->
               <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
@@ -724,7 +720,7 @@
         <div class="via-primary/20 mx-auto h-px w-3/5 bg-gradient-to-r from-transparent to-transparent"></div>
         <!-- Team -->
         <section id="team">
-          <div class="bg-base-100 py-8 sm:py-16 lg:py-24">
+          <div class="bg-base-200 py-8 sm:py-16 lg:py-24">
             <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
               <div class="mb-12 text-center sm:mb-16 lg:mb-24">
                 <h2 class="text-base-content mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">Get to Know Our Amazing Team</h2>
@@ -786,88 +782,6 @@
                       <p class="text-base-content/80 mb-1 font-medium">Culinary Director</p>
                       <p class="text-base-content/80">Bringing designs to life with seamless interfaces.</p>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- Contact Us -->
-        <section id="contact-us">
-          <div class="bg-base-200 py-8 sm:py-16 lg:py-24">
-            <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-              <!-- Heading Section -->
-              <div class="mb-12 text-center text-white sm:mb-16 lg:mb-24">
-                <h2 class="text-base-content mb-4 text-2xl font-semibold md:text-3xl md:text-6xl lg:text-4xl">Get in Touch to Reserve Your Table</h2>
-                <p class="text-base-content/80 text-xl">Whether you're planning a casual dinner or a special celebration, we're here to make your experience seamless.</p>
-              </div>
-              <div class="card shadow-md">
-                <div class="card-body grid gap-10 lg:grid-cols-7">
-                  <!-- Form Section -->
-                  <div class="lg:col-span-4">
-                    <h2 class="text-base-content mb-6 text-3xl font-semibold">Book a Table</h2>
-                    <form class="space-y-6" onsubmit="return false;">
-                      <div class="flex gap-6 max-md:flex-col">
-                        <div class="w-full">
-                          <label class="label-text" for="username">Your Name</label>
-                          <div class="input input-lg">
-                            <input type="text" class="grow" placeholder="Enter your name here..." id="username" />
-                            <span class="icon-[tabler--user] text-base-content/80 size-5.5 my-auto ms-3 shrink-0"></span>
-                          </div>
-                        </div>
-                        <div class="w-full">
-                          <label class="label-text" for="userphone">Phone Number</label>
-                          <div class="input input-lg">
-                            <input type="text" class="grow" placeholder="+1 (212) 555-1234" id="userphone" />
-                            <span class="icon-[tabler--phone] text-base-content/80 size-5.5 my-auto ms-3 shrink-0"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex gap-6 max-md:flex-col">
-                        <div class="w-full">
-                          <label class="label-text" for="userdate">Enter The Date</label>
-                          <div class="input input-lg">
-                            <input type="text" class="flatpickr-date grow" placeholder="06/11/25" id="userdate" />
-                            <span class="icon-[tabler--calendar-event] text-base-content/80 size-5.5 my-auto ms-3 shrink-0"></span>
-                          </div>
-                        </div>
-                        <div class="w-full">
-                          <label class="label-text" for="usertime">Enter Time</label>
-                          <div class="input input-lg">
-                            <input type="text" class="grow" placeholder="06:00:00" id="usertime" />
-                            <span class="icon-[tabler--calendar-time] text-base-content/80 size-5.5 my-auto ms-3 shrink-0"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <label class="label-text" for="usermessage">Message</label>
-                        <div class="textarea">
-                          <textarea class="grow resize-none" aria-label="Textarea" placeholder="Enter your message" id="usermessage"></textarea>
-                          <span class="icon-[tabler--message-circle-2] text-base-content/80 mx-4 mt-2 size-6 shrink-0"></span>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary btn-gradient w-full">Book a Reservation</button>
-                    </form>
-                  </div>
-                  <!-- Contact Information -->
-                  <div class="space-y-6 lg:col-span-3">
-                    <div class="border-base-content/20 rounded-box border p-6 text-center">
-                      <h3 class="text-base-content mb-4 text-xl font-semibold">Email/Phone</h3>
-                      <p class="text-base-content/80 mb-2 break-all">johndoe@gmail.com</p>
-                      <p class="text-base-content/80">+148 589 2001 2466</p>
-                    </div>
-                    <div class="border-base-content/20 rounded-box border p-6 text-center">
-                      <h3 class="text-base-content mb-4 text-xl font-semibold">Our Location</h3>
-                      <p class="text-base-content/80">Office 149,</p>
-                      <p class="text-base-content/80">450 South Brand Brooklyn</p>
-                      <p class="text-base-content/80">San Diego County,</p>
-                      <p class="text-base-content/80">CA 91905, USA</p>
-                    </div>
-                    <p class="text-base-content text-center font-medium">
-                      Opening Hours
-                      <span class="text-primary">9AM - 11PM</span>
-                      Everyday
-                    </p>
                   </div>
                 </div>
               </div>

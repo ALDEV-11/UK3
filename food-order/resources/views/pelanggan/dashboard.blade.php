@@ -331,6 +331,12 @@
                                         @endif
                                     </p>
                                     <p class="text-xs text-[#2C1810]">Berlaku s/d {{ optional($voucher->tgl_kadaluarsa)->format('d-m-Y') }}</p>
+                                    <p
+                                        class="voucher-countdown text-xs font-bold text-[#E8612A]"
+                                        data-expired-at="{{ $voucher->tgl_kadaluarsa ? (\Carbon\Carbon::parse($voucher->tgl_kadaluarsa)->endOfDay()->timestamp * 1000) : '' }}"
+                                    >
+                                        Sisa waktu: --
+                                    </p>
                                 </div>
 
                                 <button
@@ -353,6 +359,69 @@
     </div>
 
     <script>
+        function formatCountdown(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const days = Math.floor(totalSeconds / 86400);
+            const hours = Math.floor((totalSeconds % 86400) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            if (days > 0) {
+                return `${days}h ${hours}j ${minutes}m`;
+            }
+
+            return `${hours}j ${minutes}m ${seconds}d`;
+        }
+
+        function updateVoucherCountdown() {
+            const now = Date.now();
+
+            document.querySelectorAll('.voucher-countdown').forEach((el) => {
+                const expiredAtRaw = el.getAttribute('data-expired-at') || '';
+                const expiredAt = Number(expiredAtRaw);
+                const card = el.closest('article');
+                const copyBtn = card?.querySelector('.copy-voucher-btn');
+
+                if (!expiredAtRaw || Number.isNaN(expiredAt)) {
+                    el.textContent = 'Sisa waktu: -';
+                    if (copyBtn) {
+                        copyBtn.disabled = true;
+                        copyBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                        copyBtn.classList.remove('hover:opacity-90');
+                    }
+                    return;
+                }
+
+                const remaining = expiredAt - now;
+
+                if (remaining <= 0) {
+                    el.textContent = 'Voucher telah berakhir';
+                    el.classList.remove('text-[#E8612A]');
+                    el.classList.add('text-rose-600');
+                    if (copyBtn) {
+                        copyBtn.disabled = true;
+                        copyBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                        copyBtn.classList.remove('hover:opacity-90');
+                        copyBtn.title = 'Voucher sudah berakhir';
+                    }
+                    return;
+                }
+
+                el.textContent = `Sisa waktu: ${formatCountdown(remaining)}`;
+                el.classList.remove('text-rose-600');
+                el.classList.add('text-[#E8612A]');
+                if (copyBtn) {
+                    copyBtn.disabled = false;
+                    copyBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    copyBtn.classList.add('hover:opacity-90');
+                    copyBtn.removeAttribute('title');
+                }
+            });
+        }
+
+        updateVoucherCountdown();
+        setInterval(updateVoucherCountdown, 1000);
+
         document.querySelectorAll('.copy-voucher-btn').forEach((btn) => {
             btn.addEventListener('click', async (e) => {
                 e.preventDefault();
