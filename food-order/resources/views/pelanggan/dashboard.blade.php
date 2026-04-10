@@ -23,41 +23,6 @@
                 </div>
             </div>
 
-            {{-- SECTION 2: Shortcut Navigasi Cepat --}}
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-                <a href="{{ route('pelanggan.menu.search') }}" 
-                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Pesan Sekarang</span>
-                </a>
-                
-                <a href="{{ route('pelanggan.keranjang.index') }}" 
-                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Keranjang</span>
-                </a>
-
-                <a href="{{ route('pelanggan.pesanan.index') }}" 
-                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Riwayat</span>
-                </a>
-
-                <a href="{{ route('pelanggan.profil.edit') }}" 
-                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Profil</span>
-                </a>
-            </div>
-
             {{-- SECTION 3: Statistik Utama --}}
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div class="rounded-2xl bg-white p-6 shadow-md border border-[#F5A623]">
@@ -141,8 +106,8 @@
                             @endphp
                             <div class="flex flex-col md:flex-row items-start md:items-center gap-4 rounded-lg border border-[#F5A623] p-4 hover:shadow-md transition-shadow">
                                 @if($item->restoran?->gambar)
-                                    <img src="{{ asset('storage/' . $item->restoran->gambar) }}" 
-                                         alt="{{ $item->restoran->nama_restoran }}" 
+                                    <img src="{{ asset('storage/' . $item->restoran->gambar) }}"
+                                         alt="{{ $item->restoran->nama_restoran }}"
                                          class="h-14 w-14 rounded-lg object-cover flex-shrink-0">
                                 @else
                                     <div class="h-14 w-14 rounded-lg bg-[#FFF8F3] grid place-items-center text-lg flex-shrink-0">
@@ -161,7 +126,7 @@
                                     {{ $statusText }}
                                 </span>
 
-                                <a href="{{ route('pelanggan.pesanan.tracking', $item->kode_pesanan) }}" 
+                                <a href="{{ route('pelanggan.pesanan.tracking', $item->kode_pesanan) }}"
                                    class="w-full md:w-auto rounded-lg bg-[#E8612A] px-4 py-2 text-center text-xs font-bold text-white hover:opacity-90 transition-opacity flex-shrink-0">
                                     Lacak
                                 </a>
@@ -170,6 +135,41 @@
                     </div>
                 </div>
             @endif
+            
+            {{-- SECTION 2: Shortcut Navigasi Cepat --}}
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <a href="{{ route('pelanggan.menu.search') }}"
+                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Pesan Sekarang</span>
+                </a>
+
+                <a href="{{ route('pelanggan.keranjang.index') }}"
+                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Keranjang</span>
+                </a>
+
+                <a href="{{ route('pelanggan.pesanan.index') }}"
+                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Riwayat</span>
+                </a>
+
+                <a href="{{ route('pelanggan.profil.edit') }}"
+                   class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Profil</span>
+                </a>
+            </div>
 
             {{-- SECTION 5: Restoran Rekomendasi --}}
             @if ($rekomendasiRestoran->count() > 0)
@@ -180,7 +180,7 @@
                         </svg>
                         Restoran Populer
                     </h3>
-                    
+
                     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         @foreach($rekomendasiRestoran as $resto)
                             @php
@@ -192,8 +192,8 @@
                             <article class="rounded-xl border border-[#F5A623] overflow-hidden hover:shadow-lg transition-shadow">
                                 <div class="relative h-40 overflow-hidden bg-[#FFF8F3]">
                                     @if($resto->gambar)
-                                        <img src="{{ asset('storage/' . $resto->gambar) }}" 
-                                             alt="{{ $resto->nama_restoran }}" 
+                                        <img src="{{ asset('storage/' . $resto->gambar) }}"
+                                             alt="{{ $resto->nama_restoran }}"
                                              class="h-full w-full object-cover hover:scale-110 transition-transform duration-300">
                                     @else
                                         <div class="h-full w-full grid place-items-center">
@@ -219,7 +219,7 @@
                                         <span class="inline-flex rounded-full px-3 py-1 text-xs font-bold {{ $isOpen ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
                                             {{ $isOpen ? 'Buka' : 'Tutup' }}
                                         </span>
-                                        <a href="{{ route('restoran.public.show', $resto->slug) }}" 
+                                        <a href="{{ route('restoran.public.show', $resto->slug) }}"
                                            class="rounded-lg bg-[#E8612A] px-3 py-2 text-xs font-bold text-white hover:opacity-90 transition-opacity">
                                             Lihat Menu
                                         </a>
@@ -280,12 +280,12 @@
                                         </td>
                                         <td class="px-4 py-3 text-right">
                                             <div class="flex flex-col md:flex-row gap-2 justify-end">
-                                                <a href="{{ route('pelanggan.pesanan.show', $item->id_pesanan) }}" 
+                                                <a href="{{ route('pelanggan.pesanan.show', $item->id_pesanan) }}"
                                                    class="rounded-md border border-[#F5A623] px-3 py-1 text-xs font-bold text-[#2C1810] hover:bg-[#FFF8F3] transition-colors">
                                                     Detail
                                                 </a>
                                                 @if($item->status === 'selesai' && (int) $item->ulasan_saya_count === 0)
-                                                    <a href="{{ route('pelanggan.ulasan.create', $item->id_pesanan) }}" 
+                                                    <a href="{{ route('pelanggan.ulasan.create', $item->id_pesanan) }}"
                                                        class="rounded-md bg-[#E8612A] px-3 py-1 text-xs font-bold text-white hover:opacity-90 transition-opacity">
                                                         Beri Ulasan
                                                     </a>
@@ -433,7 +433,7 @@
                     const originalText = btn.innerHTML;
                     btn.innerHTML = '<svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin!';
                     btn.classList.add('opacity-75');
-                    
+
                     setTimeout(() => {
                         btn.innerHTML = originalText;
                         btn.classList.remove('opacity-75');

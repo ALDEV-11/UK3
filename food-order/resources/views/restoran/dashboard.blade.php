@@ -16,8 +16,8 @@
                     {{-- Foto Restoran --}}
                     <div class="md:col-span-1">
                         @if($restoran->gambar)
-                            <img src="{{ asset('storage/' . $restoran->gambar) }}" 
-                                 alt="{{ $restoran->nama_restoran }}" 
+                            <img src="{{ asset('storage/' . $restoran->gambar) }}"
+                                 alt="{{ $restoran->nama_restoran }}"
                                  class="h-40 w-40 rounded-xl object-cover">
                         @else
                             <div class="h-40 w-40 rounded-xl bg-[#FFF8F3] grid place-items-center">
@@ -39,7 +39,7 @@
                             <div>
                                 <p class="text-xs font-semibold uppercase text-[#2C1810]">Jam Operasional</p>
                                 <p class="text-sm font-bold text-[#E8612A]">
-                                    {{ $restoran->jam_buka ? substr((string) $restoran->jam_buka, 0, 5) : '-' }} - 
+                                    {{ $restoran->jam_buka ? substr((string) $restoran->jam_buka, 0, 5) : '-' }} -
                                     {{ $restoran->jam_tutup ? substr((string) $restoran->jam_tutup, 0, 5) : '-' }}
                                 </p>
                             </div>
@@ -71,7 +71,7 @@
             </div>
 
             {{-- SECTION 2: Statistik Hari Ini --}}
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {{-- <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div class="rounded-2xl bg-white p-5 shadow-md border border-[#F5A623]">
                     <div class="flex items-center justify-between">
                         <div>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- SECTION 3: Statistik Bulan Ini --}}
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -183,7 +183,7 @@
                                         </div>
 
                                         <p class="text-xs text-[#2C1810] mb-2">
-                                            Pelanggan: {{ $pesanan->pelanggan?->name ?? '-' }} | 
+                                            Pelanggan: {{ $pesanan->pelanggan?->name ?? '-' }} |
                                             {{ optional($pesanan->tanggal_pesan)->diffForHumans() }}
                                         </p>
 
@@ -227,6 +227,37 @@
                     </div>
                 </div>
             @endif
+
+            {{-- Shortcuts Navigasi Cepat --}}
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <a href="{{ route('restoran.menu.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Kelola Menu</span>
+                </a>
+
+                <a href="{{ route('restoran.kategori.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V5a2 2 0 012-2h6a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2zm0 0h14"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Kelola Kategori</span>
+                </a>
+
+                <a href="{{ route('restoran.laporan.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Lihat Laporan</span>
+                </a>
+
+                <a href="{{ route('restoran.jadwal.edit') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
+                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-sm font-bold text-[#2C1810] text-center">Atur Jam Operasional</span>
+                </a>
+            </div>
 
             {{-- SECTION 5: Grafik Penjualan --}}
             <div class="rounded-2xl bg-white p-6 shadow-md border border-[#F5A623]">
@@ -376,7 +407,7 @@
                                     @else
                                         <span class="inline-flex rounded-full px-3 py-1 text-xs font-bold bg-yellow-100 text-yellow-700">Menipis</span>
                                     @endif
-                                    
+
                                     <a href="{{ route('restoran.menu.edit', $menu->id_menu) }}" class="rounded-lg px-3 py-1 text-xs font-bold text-white hover:opacity-90 transition-opacity" style="background-color: #E8612A;">
                                         Update
                                     </a>
@@ -386,37 +417,6 @@
                     </div>
                 </div>
             @endif
-
-            {{-- Shortcuts Navigasi Cepat --}}
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-                <a href="{{ route('restoran.menu.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Kelola Menu</span>
-                </a>
-
-                <a href="{{ route('restoran.kategori.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V5a2 2 0 012-2h6a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2zm0 0h14"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Kelola Kategori</span>
-                </a>
-
-                <a href="{{ route('restoran.laporan.index') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Lihat Laporan</span>
-                </a>
-
-                <a href="{{ route('restoran.jadwal.edit') }}" class="flex flex-col items-center justify-center rounded-2xl bg-white p-6 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all">
-                    <svg class="w-8 h-8 text-[#E8612A] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span class="text-sm font-bold text-[#2C1810] text-center">Atur Jam Operasional</span>
-                </a>
-            </div>
 
         </div>
     </div>

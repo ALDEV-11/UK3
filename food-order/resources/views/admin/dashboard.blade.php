@@ -30,57 +30,12 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
 
-            {{-- Shortcut Navigasi Cepat --}}
-            <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-                <a href="{{ route('admin.restoran.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5.581m0 0H9m0 0h5.581m0 0a2.121 2.121 0 01-3.75 1.682M9 12.5a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0m7-6.5h2.914a1 1 0 01.894 1.447l-5.369 7.905a1 1 0 01-.894.553H9m0 0H7.08a1 1 0 01-.894-.553l-5.369-7.905a1 1 0 01.894-1.447h2.914"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Kelola Restoran</span>
-                </a>
-
-                <a href="{{ route('admin.menu.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Kelola Menu</span>
-                </a>
-
-                <a href="{{ route('admin.pesanan.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Semua Pesanan</span>
-                </a>
-
-                <a href="{{ route('admin.voucher.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Kelola Voucher</span>
-                </a>
-
-                <a href="{{ route('admin.kurir.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Manajemen Kurir</span>
-                </a>
-
-                <a href="#" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
-                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    <span class="text-xs font-bold text-[#2C1810]">Laporan Penjualan</span>
-                </a>
-            </div>
-
             {{-- SECTION 2: Statistik Hari Ini --}}
-            <div>
+            {{-- <div>
                 <h3 class="mb-4 text-lg font-extrabold text-[#2C1810] flex items-center gap-2">
                     <svg class="w-5 h-5 text-[#E8612A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -102,7 +57,7 @@
                         </div>
                     </div>
 
-                    {{-- NONAKTIF: Card Pendapatan Hari Ini
+                    NONAKTIF: Card Pendapatan Hari Ini
                     <div class="rounded-2xl bg-white p-5 shadow-md border border-[#F5A623]">
                         <div class="flex items-center justify-between">
                             <div>
@@ -116,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    --}}
+
 
                     <div class="rounded-2xl bg-white p-5 shadow-md border border-[#F5A623]">
                         <div class="flex items-center justify-between">
@@ -146,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- SECTION 3: Statistik Global --}}
             <div>
@@ -215,6 +170,116 @@
                     </table>
                 </div>
             </div> --}}
+
+            {{-- SECTION 6: Pesanan Terbaru --}}
+            @if ($pesananTerbaru->count() > 0)
+                <div class="rounded-2xl bg-white p-6 shadow-md border border-[#F5A623]">
+                    <h3 class="mb-4 text-lg font-extrabold text-[#2C1810] flex items-center gap-2">
+                        <svg class="w-5 h-5 text-[#E8612A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        10 Pesanan Terbaru
+                    </h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="border-b border-[#F5A623]">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Kode</th>
+                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Pelanggan</th>
+                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Restoran</th>
+                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Item</th>
+                                    <th class="px-4 py-2 text-right font-bold text-[#2C1810]">Total</th>
+                                    <th class="px-4 py-2 text-center font-bold text-[#2C1810]">Status</th>
+                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#FFF8F3]">
+                                @foreach($pesananTerbaru as $pesanan)
+                                    @php
+                                        $statusColors = [
+                                            'menunggu' => 'bg-yellow-100 text-yellow-700',
+                                            'dikonfirmasi' => 'bg-blue-100 text-blue-700',
+                                            'dimasak' => 'bg-orange-100 text-orange-700',
+                                            'dikirim' => 'bg-purple-100 text-purple-700',
+                                            'selesai' => 'bg-green-100 text-green-700',
+                                            'dibatalkan' => 'bg-red-100 text-red-700',
+                                        ];
+                                        $statusClass = $statusColors[$pesanan->status] ?? 'bg-gray-100 text-gray-700';
+                                    @endphp
+                                    <tr class="hover:bg-[#FFF8F3]">
+                                        <td class="px-4 py-2 text-[#2C1810] font-bold">{{ $pesanan->kode_pesanan }}</td>
+                                        <td class="px-4 py-2 text-[#2C1810]">{{ $pesanan->pelanggan?->name ?? '-' }}</td>
+                                        <td class="px-4 py-2 text-[#2C1810]">{{ $pesanan->restoran?->nama_restoran ?? '-' }}</td>
+                                        <td class="px-4 py-2 text-[#2C1810] text-xs">
+                                            @foreach($pesanan->detailPesanan->take(2) as $detail)
+                                                {{ $detail->menu?->nama_menu ?? '-' }} x{{ $detail->jumlah }}<br>
+                                            @endforeach
+                                            @if($pesanan->detailPesanan->count() > 2)
+                                                <em>+{{ $pesanan->detailPesanan->count() - 2 }} lagi</em>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-2 text-right font-bold text-[#E8612A]">
+                                            Rp {{ number_format((float) $pesanan->grand_total, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-4 py-2 text-center">
+                                            <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold {{ $statusClass }}">
+                                                {{ ucfirst($pesanan->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-2 text-[#2C1810] text-xs">{{ optional($pesanan->tanggal_pesan)->format('d M Y') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+
+             {{-- Shortcut Navigasi Cepat --}}
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+                <a href="{{ route('admin.restoran.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5.581m0 0H9m0 0h5.581m0 0a2.121 2.121 0 01-3.75 1.682M9 12.5a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0m7-6.5h2.914a1 1 0 01.894 1.447l-5.369 7.905a1 1 0 01-.894.553H9m0 0H7.08a1 1 0 01-.894-.553l-5.369-7.905a1 1 0 01.894-1.447h2.914"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Kelola Restoran</span>
+                </a>
+
+                <a href="{{ route('admin.menu.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Kelola Menu</span>
+                </a>
+
+                <a href="{{ route('admin.pesanan.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Semua Pesanan</span>
+                </a>
+
+                <a href="{{ route('admin.voucher.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Kelola Voucher</span>
+                </a>
+
+                <a href="{{ route('admin.kurir.index') }}" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Manajemen Kurir</span>
+                </a>
+
+                <a href="#" class="flex flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md border border-[#F5A623] hover:shadow-lg hover:scale-105 transition-all text-center">
+                    <svg class="w-6 h-6 text-[#E8612A] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-[#2C1810]">Laporan Penjualan</span>
+                </a>
+            </div>
 
             {{-- SECTION 5: Statistik Pesanan per Status --}}
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
@@ -291,71 +356,6 @@
                 </div>
             </div>
 
-            {{-- SECTION 6: Pesanan Terbaru --}}
-            @if ($pesananTerbaru->count() > 0)
-                <div class="rounded-2xl bg-white p-6 shadow-md border border-[#F5A623]">
-                    <h3 class="mb-4 text-lg font-extrabold text-[#2C1810] flex items-center gap-2">
-                        <svg class="w-5 h-5 text-[#E8612A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                        </svg>
-                        10 Pesanan Terbaru
-                    </h3>
-
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm">
-                            <thead class="border-b border-[#F5A623]">
-                                <tr>
-                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Kode</th>
-                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Pelanggan</th>
-                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Restoran</th>
-                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Item</th>
-                                    <th class="px-4 py-2 text-right font-bold text-[#2C1810]">Total</th>
-                                    <th class="px-4 py-2 text-center font-bold text-[#2C1810]">Status</th>
-                                    <th class="px-4 py-2 text-left font-bold text-[#2C1810]">Tanggal</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-[#FFF8F3]">
-                                @foreach($pesananTerbaru as $pesanan)
-                                    @php
-                                        $statusColors = [
-                                            'menunggu' => 'bg-yellow-100 text-yellow-700',
-                                            'dikonfirmasi' => 'bg-blue-100 text-blue-700',
-                                            'dimasak' => 'bg-orange-100 text-orange-700',
-                                            'dikirim' => 'bg-purple-100 text-purple-700',
-                                            'selesai' => 'bg-green-100 text-green-700',
-                                            'dibatalkan' => 'bg-red-100 text-red-700',
-                                        ];
-                                        $statusClass = $statusColors[$pesanan->status] ?? 'bg-gray-100 text-gray-700';
-                                    @endphp
-                                    <tr class="hover:bg-[#FFF8F3]">
-                                        <td class="px-4 py-2 text-[#2C1810] font-bold">{{ $pesanan->kode_pesanan }}</td>
-                                        <td class="px-4 py-2 text-[#2C1810]">{{ $pesanan->pelanggan?->name ?? '-' }}</td>
-                                        <td class="px-4 py-2 text-[#2C1810]">{{ $pesanan->restoran?->nama_restoran ?? '-' }}</td>
-                                        <td class="px-4 py-2 text-[#2C1810] text-xs">
-                                            @foreach($pesanan->detailPesanan->take(2) as $detail)
-                                                {{ $detail->menu?->nama_menu ?? '-' }} x{{ $detail->jumlah }}<br>
-                                            @endforeach
-                                            @if($pesanan->detailPesanan->count() > 2)
-                                                <em>+{{ $pesanan->detailPesanan->count() - 2 }} lagi</em>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-2 text-right font-bold text-[#E8612A]">
-                                            Rp {{ number_format((float) $pesanan->grand_total, 0, ',', '.') }}
-                                        </td>
-                                        <td class="px-4 py-2 text-center">
-                                            <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-bold {{ $statusClass }}">
-                                                {{ ucfirst($pesanan->status) }}
-                                            </span>
-                                        </td>
-                                        <td class="px-4 py-2 text-[#2C1810] text-xs">{{ optional($pesanan->tanggal_pesan)->format('d M Y') }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
-
             {{-- SECTION 7: Performa Restoran --}}
             @if ($performaRestoran->count() > 0)
                 <div class="rounded-2xl bg-white p-6 shadow-md border border-[#F5A623]">
@@ -422,7 +422,7 @@
                                 <div>
                                     <p class="font-bold text-[#2C1810]">{{ $voucher->kode_voucher }}</p>
                                     <p class="text-xs text-[#2C1810] mt-1">
-                                        Diskon: 
+                                        Diskon:
                                         @if($voucher->jenis_diskon === 'persen')
                                             {{ $voucher->nilai_diskon }}%
                                         @else
@@ -454,6 +454,8 @@
                     </div>
                 </div>
             @endif
+
+
 
         </div>
     </div>
